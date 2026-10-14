@@ -301,5 +301,5 @@ http://localhost:8000
 ## 9. 记录
 
 - 创建日期：2026-10-14
-- Demo 版词条：共 35 个，覆盖技术、使用、学术三大分类
-- 首批示例：Skill、Harmfulness、Prompt、Alignment、Emergent Ability、LLM、Transformer、Token、RAG、Agent、AGI 等
+- Demo 版词条：共 101 个，覆盖技术、使用、学术三大分类
+- 涵盖范围：高普及度术语（LLM、Transformer、Token、Prompt Engineering、RAG、Agent、AGI 等）以及部分进阶/不常用术语（MoE、Constitutional AI、Chinese Room、Cybernetics 等）
