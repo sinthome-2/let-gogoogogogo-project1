@@ -1,0 +1,95 @@
+{
+  "categories": [
+    {
+      "id": "technical",
+      "name": "技术",
+      "description": "与 AI 系统实现、训练、部署、安全相关的术语。",
+      "subcategories": [
+        {
+          "id": "model-architecture",
+          "name": "模型架构",
+          "description": "描述模型内部结构、组件与组织方式的术语。"
+        },
+        {
+          "id": "training-optimization",
+          "name": "训练与优化",
+          "description": "与模型训练、调参、收敛和效率相关的术语。"
+        },
+        {
+          "id": "data-representation",
+          "name": "数据与表示",
+          "description": "与数据、嵌入、token、知识表示相关的术语。"
+        },
+        {
+          "id": "inference-deployment",
+          "name": "推理与部署",
+          "description": "与模型推理、服务化、API 和工程化相关的术语。"
+        },
+        {
+          "id": "safety-alignment",
+          "name": "安全与对齐",
+          "description": "与模型安全、对齐、可控性和风险评估相关的术语。"
+        }
+      ]
+    },
+    {
+      "id": "usage",
+      "name": "使用",
+      "description": "与如何调用、提示、评估和应用 AI 相关的术语。",
+      "subcategories": [
+        {
+          "id": "interaction-modes",
+          "name": "交互方式",
+          "description": "描述人与 AI 交互形态与接口的术语。"
+        },
+        {
+          "id": "prompt-engineering",
+          "name": "提示工程",
+          "description": "与提示设计、上下文构造和提示优化相关的术语。"
+        },
+        {
+          "id": "application-scenarios",
+          "name": "应用场景",
+          "description": "与 AI 在具体领域或任务中应用相关的术语。"
+        },
+        {
+          "id": "output-evaluation",
+          "name": "输出与评估",
+          "description": "与模型输出质量、评估指标和测试相关的术语。"
+        },
+        {
+          "id": "tools-platforms",
+          "name": "工具与平台",
+          "description": "与开发工具、模型平台和服务生态相关的术语。"
+        }
+      ]
+    },
+    {
+      "id": "academic",
+      "name": "学术",
+      "description": "与 AI 研究、伦理、社会影响及跨学科概念相关的术语。",
+      "subcategories": [
+        {
+          "id": "cognition-ethics",
+          "name": "认知与伦理",
+          "description": "与机器认知、意识、道德推理和伦理框架相关的术语。"
+        },
+        {
+          "id": "society-impact",
+          "name": "社会与影响",
+          "description": "与 AI 对社会、经济、文化和劳动力影响相关的术语。"
+        },
+        {
+          "id": "philosophy-ontology",
+          "name": "哲学与本体",
+          "description": "与智能本质、存在论和认识论问题相关的术语。"
+        },
+        {
+          "id": "interdisciplinary",
+          "name": "跨学科概念",
+          "description": "来自语言学、心理学、控制论等其他学科并迁移到 AI 的术语。"
+        }
+      ]
+    }
+  ]
+}

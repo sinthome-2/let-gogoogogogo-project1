@@ -1,0 +1,74 @@
+{
+  "terms": [
+    {
+      "id": "skill",
+      "name": "Skill",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": ["能力", "技能"],
+      "definition": "模型在特定任务上表现出的稳定能力，通常通过微调（fine-tuning）或强化学习（RLHF）获得。一个模型可能具备多个 skill，例如代码生成、多语言翻译或逻辑推理。",
+      "examples": [
+        "代码生成 skill：根据自然语言描述输出可运行代码。",
+        "多语言翻译 skill：在多种语言之间进行高质量互译。",
+        "指令遵循 skill：理解并执行用户给出的复杂指令。"
+      ],
+      "related": ["capability", "fine-tuning", "emergent-ability"]
+    },
+    {
+      "id": "harmfulness",
+      "name": "Harmfulness",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": ["危害性", "有害性"],
+      "definition": "模型输出或行为对用户、社会或环境造成负面影响的潜在程度。评估 harmfulness 是 AI 安全研究的核心任务之一。",
+      "examples": [
+        "生成歧视性、仇恨或误导性内容。",
+        "输出可能用于制造危险物品或实施攻击的指令。",
+        "在医疗或法律等高风险领域给出错误建议。"
+      ],
+      "related": ["safety", "alignment", "toxicity", "red-teaming"]
+    },
+    {
+      "id": "prompt",
+      "name": "Prompt",
+      "category": "usage",
+      "subcategory": "prompt-engineering",
+      "aliases": ["提示", "提示词"],
+      "definition": "用户输入给生成式 AI 模型的文本、图像或其他形式的指令或上下文，用于引导模型产生期望的输出。",
+      "examples": [
+        "‘请用三句话总结以下文章’ 是一个简单的文本 prompt。",
+        "Chain-of-Thought prompt 会在问题后加上‘请逐步思考’。",
+        "多模态 prompt 可能同时包含图片和文字说明。"
+      ],
+      "related": ["prompt-engineering", "context-window", "few-shot"]
+    },
+    {
+      "id": "alignment",
+      "name": "Alignment",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": ["对齐", "价值对齐"],
+      "definition": "使 AI 系统的目标、行为和输出与人类意图、价值观及偏好保持一致的过程与状态。对齐问题是当前 AI 安全研究的核心议题。",
+      "examples": [
+        "通过 RLHF 让模型拒绝生成有害内容。",
+        "设计 Constitution AI 使模型遵循一套显式原则。",
+        "评估模型在目标冲突场景中的选择是否符合人类价值。"
+      ],
+      "related": ["rlhf", "safety", "harmfulness", "value"]
+    },
+    {
+      "id": "emergent-ability",
+      "name": "Emergent Ability",
+      "category": "academic",
+      "subcategory": "cognition-ethics",
+      "aliases": ["涌现能力"],
+      "definition": "随模型规模、数据量或训练计算量增长而突然出现的能力，这些能力在较小模型中并不存在或表现很弱。",
+      "examples": [
+        "大语言模型在参数达到一定规模后突然展现出链式推理能力。",
+        "多步算术题准确率随模型变大而陡升。",
+        "某些翻译能力在中小模型中几乎不存在，在大模型中突然显现。"
+      ],
+      "related": ["scaling-law", "skill", "chain-of-thought"]
+    }
+  ]
+}
