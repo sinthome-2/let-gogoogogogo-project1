@@ -5,70 +5,748 @@
       "name": "Skill",
       "category": "technical",
       "subcategory": "model-architecture",
-      "aliases": ["能力", "技能"],
+      "aliases": [
+        "能力",
+        "技能"
+      ],
       "definition": "模型在特定任务上表现出的稳定能力，通常通过微调（fine-tuning）或强化学习（RLHF）获得。一个模型可能具备多个 skill，例如代码生成、多语言翻译或逻辑推理。",
       "examples": [
         "代码生成 skill：根据自然语言描述输出可运行代码。",
         "多语言翻译 skill：在多种语言之间进行高质量互译。",
         "指令遵循 skill：理解并执行用户给出的复杂指令。"
       ],
-      "related": ["capability", "fine-tuning", "emergent-ability"]
+      "related": [
+        "fine-tuning",
+        "emergent-ability",
+        "llm"
+      ]
+    },
+    {
+      "id": "llm",
+      "name": "LLM",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "Large Language Model",
+        "大语言模型"
+      ],
+      "definition": "通过海量文本数据训练、拥有数十亿乃至数万亿参数的语言模型，能够理解和生成自然语言。ChatGPT、Claude、Gemini 等都属于 LLM。",
+      "examples": [
+        "GPT-4、Claude 3.5、Llama 3 都是当前知名的 LLM。",
+        "LLM 可以完成写作、翻译、问答、代码生成等任务。",
+        "LLM 的'大'主要体现在参数量和数据量上。"
+      ],
+      "related": [
+        "transformer",
+        "parameter",
+        "training-data",
+        "inference"
+      ]
+    },
+    {
+      "id": "transformer",
+      "name": "Transformer",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "转换器"
+      ],
+      "definition": "一种基于自注意力机制（self-attention）的神经网络架构，由 Google 在 2017 年提出。Transformer 是现代大语言模型的基础结构。",
+      "examples": [
+        "BERT、GPT、T5 等模型都基于 Transformer 架构。",
+        "Transformer 的'自注意力'机制让模型能同时关注句子中不同位置的词。",
+        "相比 RNN，Transformer 更适合并行训练和大规模扩展。"
+      ],
+      "related": [
+        "llm",
+        "parameter",
+        "attention",
+        "embedding"
+      ]
+    },
+    {
+      "id": "parameter",
+      "name": "Parameter",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "参数"
+      ],
+      "definition": "神经网络中可学习的权重数值，决定了模型如何处理输入并生成输出。参数量通常被用来衡量模型规模。",
+      "examples": [
+        "GPT-3 约有 1750 亿参数。",
+        "参数越多，模型通常能记住更多知识、表达更复杂的模式。",
+        "模型文件大小主要由参数量和数值精度决定。"
+      ],
+      "related": [
+        "llm",
+        "transformer",
+        "fine-tuning",
+        "training-data"
+      ]
+    },
+    {
+      "id": "context-window",
+      "name": "Context Window",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "上下文窗口",
+        "语境窗口"
+      ],
+      "definition": "模型在一次推理中能够同时'看到'的最大输入长度，通常以 token 数量衡量。超过窗口长度的内容会被截断或忽略。",
+      "examples": [
+        "某模型的 context window 是 128K token，意味着它能一次处理很长的文档。",
+        "长对话应用需要较大的 context window 才能记住更早的上下文。",
+        "如果输入太长，需要先压缩或分段处理。"
+      ],
+      "related": [
+        "token",
+        "llm",
+        "prompt",
+        "rag"
+      ]
+    },
+    {
+      "id": "multimodal",
+      "name": "Multimodal",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "多模态"
+      ],
+      "definition": "能够同时处理并理解多种类型数据（如文本、图像、音频、视频）的 AI 系统或模型。",
+      "examples": [
+        "GPT-4o 可以同时接收图片和文字并给出描述。",
+        "多模态模型能根据草图生成网页代码。",
+        "语音识别和图像描述都是多模态任务。"
+      ],
+      "related": [
+        "llm",
+        "transformer",
+        "embedding"
+      ]
+    },
+    {
+      "id": "fine-tuning",
+      "name": "Fine-tuning",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "微调"
+      ],
+      "definition": "在预训练好的模型基础上，使用特定领域或任务的小规模数据继续训练，使模型更适合特定用途。",
+      "examples": [
+        "用医学文献微调通用 LLM，使其更擅长回答医学问题。",
+        "微调可以让模型学会特定的语气或格式。",
+        "相比从头训练，微调成本更低、速度更快。"
+      ],
+      "related": [
+        "llm",
+        "parameter",
+        "rlhf",
+        "training-data"
+      ]
+    },
+    {
+      "id": "rlhf",
+      "name": "RLHF",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "Reinforcement Learning from Human Feedback",
+        "基于人类反馈的强化学习"
+      ],
+      "definition": "一种训练方法：先让人类对模型的多个输出打分或排序，再用强化学习让模型倾向于生成人类更喜欢的回答。ChatGPT 等模型普遍采用 RLHF 进行对齐。",
+      "examples": [
+        "RLHF 让模型学会拒绝回答有害请求。",
+        "人类标注员会比较两个回答，选出更好的一个。",
+        "RLHF 是对齐（alignment）的核心技术之一。"
+      ],
+      "related": [
+        "alignment",
+        "fine-tuning",
+        "reward-model",
+        "safety"
+      ]
+    },
+    {
+      "id": "training-data",
+      "name": "Training Data",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "训练数据"
+      ],
+      "definition": "用于训练机器学习模型的数据集合。数据的质量、规模和多样性直接影响模型能力。",
+      "examples": [
+        "大语言模型通常在互联网网页、书籍、代码等数据上训练。",
+        "清洗训练数据是提升模型质量的关键步骤。",
+        "训练数据中的偏见可能导致模型产生偏见输出。"
+      ],
+      "related": [
+        "llm",
+        "parameter",
+        "fine-tuning",
+        "bias"
+      ]
+    },
+    {
+      "id": "token",
+      "name": "Token",
+      "category": "technical",
+      "subcategory": "data-representation",
+      "aliases": [
+        "词元",
+        "令牌"
+      ],
+      "definition": "模型处理文本时的最小单位，可以是单词、子词或字符。模型按 token 计费、限制上下文长度并生成输出。",
+      "examples": [
+        "英文中一个 token 大约等于 0.75 个单词。",
+        "'ChatGPT' 可能被切分为多个 token。",
+        "API 通常按输入和输出的 token 总数收费。"
+      ],
+      "related": [
+        "context-window",
+        "embedding",
+        "llm",
+        "api"
+      ]
+    },
+    {
+      "id": "embedding",
+      "name": "Embedding",
+      "category": "technical",
+      "subcategory": "data-representation",
+      "aliases": [
+        "嵌入",
+        "向量表示"
+      ],
+      "definition": "将文本、图像等数据转换为高维数值向量的表示方式。语义相近的内容在向量空间中距离更近。",
+      "examples": [
+        "'国王'与'女王'的 embedding 在向量空间中很接近。",
+        "RAG 系统常用 embedding 来检索相关文档。",
+        "Embedding 可用于语义搜索、聚类和推荐。"
+      ],
+      "related": [
+        "token",
+        "transformer",
+        "rag",
+        "vector-database"
+      ]
+    },
+    {
+      "id": "inference",
+      "name": "Inference",
+      "category": "technical",
+      "subcategory": "inference-deployment",
+      "aliases": [
+        "推理",
+        "前向传播"
+      ],
+      "definition": "训练完成后，使用模型对新输入进行预测或生成输出的过程。用户与 AI 聊天时的每一次回复都属于 inference。",
+      "examples": [
+        "模型训练只需一次，但 inference 每天可能发生数十亿次。",
+        "Inference 成本通常低于训练成本，但规模放大后也很可观。",
+        "优化 inference 速度是部署大模型的重要课题。"
+      ],
+      "related": [
+        "llm",
+        "api",
+        "temperature",
+        "latency"
+      ]
+    },
+    {
+      "id": "temperature",
+      "name": "Temperature",
+      "category": "technical",
+      "subcategory": "inference-deployment",
+      "aliases": [
+        "温度",
+        "采样温度"
+      ],
+      "definition": "控制模型输出随机性的参数。温度越低，输出越确定、保守；温度越高，输出越多样、有创意。",
+      "examples": [
+        "Temperature = 0 时，同样输入几乎总是得到同样输出。",
+        "写诗或头脑风暴时通常用较高的 temperature。",
+        "代码生成通常用较低的 temperature 以保证正确性。"
+      ],
+      "related": [
+        "inference",
+        "sampling",
+        "top-p"
+      ]
+    },
+    {
+      "id": "api",
+      "name": "API",
+      "category": "technical",
+      "subcategory": "inference-deployment",
+      "aliases": [
+        "Application Programming Interface",
+        "应用程序接口"
+      ],
+      "definition": "一组允许不同软件之间互相通信的接口规范。在 AI 领域，API 通常指调用模型服务的方式。",
+      "examples": [
+        "开发者通过 OpenAI API 向 GPT-4 发送 prompt 并获取回复。",
+        "API 让非 AI 专家也能把大模型能力集成到自己的应用中。",
+        "API 调用通常需要密钥（API key）并按用量计费。"
+      ],
+      "related": [
+        "llm",
+        "inference",
+        "token",
+        "api-key"
+      ]
     },
     {
       "id": "harmfulness",
       "name": "Harmfulness",
       "category": "technical",
       "subcategory": "safety-alignment",
-      "aliases": ["危害性", "有害性"],
+      "aliases": [
+        "危害性",
+        "有害性"
+      ],
       "definition": "模型输出或行为对用户、社会或环境造成负面影响的潜在程度。评估 harmfulness 是 AI 安全研究的核心任务之一。",
       "examples": [
         "生成歧视性、仇恨或误导性内容。",
         "输出可能用于制造危险物品或实施攻击的指令。",
         "在医疗或法律等高风险领域给出错误建议。"
       ],
-      "related": ["safety", "alignment", "toxicity", "red-teaming"]
+      "related": [
+        "safety",
+        "alignment",
+        "toxicity",
+        "red-teaming"
+      ]
     },
     {
-      "id": "prompt",
-      "name": "Prompt",
-      "category": "usage",
-      "subcategory": "prompt-engineering",
-      "aliases": ["提示", "提示词"],
-      "definition": "用户输入给生成式 AI 模型的文本、图像或其他形式的指令或上下文，用于引导模型产生期望的输出。",
-      "examples": [
-        "‘请用三句话总结以下文章’ 是一个简单的文本 prompt。",
-        "Chain-of-Thought prompt 会在问题后加上‘请逐步思考’。",
-        "多模态 prompt 可能同时包含图片和文字说明。"
+      "id": "hallucination",
+      "name": "Hallucination",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": [
+        "幻觉"
       ],
-      "related": ["prompt-engineering", "context-window", "few-shot"]
+      "definition": "模型生成看似合理但实际上虚假、错误或与事实不符的内容。大语言模型容易出现幻觉，因为它们本质上是在预测下一个 token，而非查询事实数据库。",
+      "examples": [
+        "模型编造不存在的论文标题和作者。",
+        "回复中给出错误的法律法规条文。",
+        "把两个真实事件混成一个不存在的故事。"
+      ],
+      "related": [
+        "safety",
+        "rag",
+        "factuality",
+        "alignment"
+      ]
+    },
+    {
+      "id": "jailbreak",
+      "name": "Jailbreak",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": [
+        "越狱"
+      ],
+      "definition": "通过精心构造的 prompt 绕过模型的安全限制，使其生成原本应该拒绝的内容。Jailbreak 是红队测试和安全研究的重要对象。",
+      "examples": [
+        "让模型扮演某个角色以绕过内容政策。",
+        "把有害请求编码成谜语或翻译任务。",
+        "通过持续对话逐步诱导模型突破限制。"
+      ],
+      "related": [
+        "prompt-engineering",
+        "safety",
+        "red-teaming",
+        "harmfulness"
+      ]
+    },
+    {
+      "id": "red-teaming",
+      "name": "Red Teaming",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": [
+        "红队测试",
+        "红队对抗"
+      ],
+      "definition": "有组织地尝试发现模型漏洞、弱点或有害行为的过程，目的是在部署前修复问题。红队测试是 AI 安全和对齐工作的重要环节。",
+      "examples": [
+        "雇佣安全研究员尝试让模型输出有害内容。",
+        "用自动化方法批量生成潜在攻击 prompt。",
+        "红队发现的漏洞会被用来改进训练和安全策略。"
+      ],
+      "related": [
+        "safety",
+        "alignment",
+        "jailbreak",
+        "harmfulness"
+      ]
+    },
+    {
+      "id": "safety",
+      "name": "Safety",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": [
+        "安全性",
+        "AI 安全"
+      ],
+      "definition": "防止 AI 系统造成意外伤害、滥用或负面后果的研究与实践。AI safety 涵盖对齐、鲁棒性、隐私保护和可控性等多个方面。",
+      "examples": [
+        "训练模型拒绝生成危险指令。",
+        "检测并过滤模型输出中的有害内容。",
+        "制定模型部署前的风险评估流程。"
+      ],
+      "related": [
+        "alignment",
+        "harmfulness",
+        "red-teaming",
+        "jailbreak"
+      ]
+    },
+    {
+      "id": "toxicity",
+      "name": "Toxicity",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": [
+        "毒性",
+        "有害言论"
+      ],
+      "definition": "模型输出中包含仇恨、侮辱、威胁、歧视或其他有害语言的程度。Toxicity 是内容安全审核的关键指标之一。",
+      "examples": [
+        "生成带有种族歧视色彩的评论。",
+        "用攻击性语言回应用户。",
+        "社交平台用 toxicity 检测模型自动过滤不当言论。"
+      ],
+      "related": [
+        "harmfulness",
+        "safety",
+        "moderation",
+        "bias"
+      ]
     },
     {
       "id": "alignment",
       "name": "Alignment",
       "category": "technical",
       "subcategory": "safety-alignment",
-      "aliases": ["对齐", "价值对齐"],
+      "aliases": [
+        "对齐",
+        "价值对齐"
+      ],
       "definition": "使 AI 系统的目标、行为和输出与人类意图、价值观及偏好保持一致的过程与状态。对齐问题是当前 AI 安全研究的核心议题。",
       "examples": [
         "通过 RLHF 让模型拒绝生成有害内容。",
         "设计 Constitution AI 使模型遵循一套显式原则。",
         "评估模型在目标冲突场景中的选择是否符合人类价值。"
       ],
-      "related": ["rlhf", "safety", "harmfulness", "value"]
+      "related": [
+        "rlhf",
+        "safety",
+        "harmfulness"
+      ]
+    },
+    {
+      "id": "prompt",
+      "name": "Prompt",
+      "category": "usage",
+      "subcategory": "prompt-engineering",
+      "aliases": [
+        "提示",
+        "提示词"
+      ],
+      "definition": "用户输入给生成式 AI 模型的文本、图像或其他形式的指令或上下文，用于引导模型产生期望的输出。",
+      "examples": [
+        "'请用三句话总结以下文章' 是一个简单的文本 prompt。",
+        "Chain-of-Thought prompt 会在问题后加上'请逐步思考'。",
+        "多模态 prompt 可能同时包含图片和文字说明。"
+      ],
+      "related": [
+        "prompt-engineering",
+        "context-window",
+        "few-shot"
+      ]
+    },
+    {
+      "id": "prompt-engineering",
+      "name": "Prompt Engineering",
+      "category": "usage",
+      "subcategory": "prompt-engineering",
+      "aliases": [
+        "提示工程",
+        "提示词工程"
+      ],
+      "definition": "设计和优化 prompt 的技术与艺术，目的是让模型更准确、可靠地完成特定任务。好的 prompt 能显著提升输出质量。",
+      "examples": [
+        "通过加入角色设定让模型以专家口吻回答。",
+        "用 few-shot 示例教会模型新的输出格式。",
+        "在 prompt 中明确输出长度、格式和约束条件。"
+      ],
+      "related": [
+        "prompt",
+        "chain-of-thought",
+        "few-shot",
+        "system-prompt"
+      ]
+    },
+    {
+      "id": "chain-of-thought",
+      "name": "Chain-of-Thought",
+      "category": "usage",
+      "subcategory": "prompt-engineering",
+      "aliases": [
+        "CoT",
+        "思维链"
+      ],
+      "definition": "一种提示技术，通过在 prompt 中引导模型展示中间推理步骤，从而提升其在数学、逻辑和复杂问题上的表现。",
+      "examples": [
+        "在数学题后加一句'请逐步思考并解释过程'。",
+        "让模型先列出证据，再给出结论。",
+        "CoT 能显著减少复杂推理任务的错误率。"
+      ],
+      "related": [
+        "prompt-engineering",
+        "few-shot",
+        "reasoning"
+      ]
+    },
+    {
+      "id": "few-shot",
+      "name": "Few-shot",
+      "category": "usage",
+      "subcategory": "prompt-engineering",
+      "aliases": [
+        "少样本学习",
+        "小样本提示"
+      ],
+      "definition": "在 prompt 中提供几个输入-输出示例，让模型理解任务模式并泛化到新输入。相比零样本（zero-shot），few-shot 通常能获得更稳定的结果。",
+      "examples": [
+        "给出三个中文→英文翻译示例，再让模型翻译新句子。",
+        "用 few-shot 让模型学会特定的分类标准。",
+        "示例质量比数量更重要，通常 2-5 个高质量示例就足够。"
+      ],
+      "related": [
+        "zero-shot",
+        "prompt-engineering",
+        "prompt"
+      ]
+    },
+    {
+      "id": "zero-shot",
+      "name": "Zero-shot",
+      "category": "usage",
+      "subcategory": "prompt-engineering",
+      "aliases": [
+        "零样本",
+        "零样本提示"
+      ],
+      "definition": "不给出任何示例，直接让模型完成任务的方式。zero-shot 考验模型的通用理解和指令遵循能力。",
+      "examples": [
+        "直接问模型'把这句话翻译成法语'，不提供翻译示例。",
+        "零样本适合任务描述足够清晰的场景。",
+        "当零样本效果不佳时，可改用 few-shot。"
+      ],
+      "related": [
+        "few-shot",
+        "prompt-engineering",
+        "instruction-following"
+      ]
+    },
+    {
+      "id": "system-prompt",
+      "name": "System Prompt",
+      "category": "usage",
+      "subcategory": "prompt-engineering",
+      "aliases": [
+        "系统提示",
+        "系统提示词"
+      ],
+      "definition": "在对话开始处设置的全局性指令，用于定义模型的角色、行为准则、输出格式或安全边界。用户通常看不到 system prompt。",
+      "examples": [
+        "'你是一位 helpful 的编程助手'就是一个 system prompt。",
+        "System prompt 可以规定模型必须拒绝哪些请求。",
+        "同一个模型在不同产品中的性格差异常由 system prompt 决定。"
+      ],
+      "related": [
+        "prompt",
+        "prompt-engineering",
+        "jailbreak"
+      ]
+    },
+    {
+      "id": "rag",
+      "name": "RAG",
+      "category": "usage",
+      "subcategory": "application-scenarios",
+      "aliases": [
+        "Retrieval-Augmented Generation",
+        "检索增强生成"
+      ],
+      "definition": "一种结合信息检索与文本生成的技术：先在外部知识库中检索相关文档，再让模型基于检索结果生成回答，从而减少幻觉并回答时效性问题。",
+      "examples": [
+        "企业内部问答系统用 RAG 基于私有文档回答员工问题。",
+        "RAG 让模型能引用最新新闻，而不是只依赖训练数据。",
+        "向量数据库是 RAG 系统常用的检索后端。"
+      ],
+      "related": [
+        "embedding",
+        "vector-database",
+        "hallucination",
+        "llm"
+      ]
+    },
+    {
+      "id": "agent",
+      "name": "Agent",
+      "category": "usage",
+      "subcategory": "application-scenarios",
+      "aliases": [
+        "智能体",
+        "代理"
+      ],
+      "definition": "能够感知环境、自主决策并调用工具完成目标的 AI 系统。Agent 不仅能生成文本，还能执行代码、查询数据库、浏览网页等。",
+      "examples": [
+        "能自动订机票、查天气并写行程的 AI 助手。",
+        "代码 Agent 可以读取文件、运行测试并修复 bug。",
+        "Agent 通常由 LLM 作为'大脑'，配合工具链使用。"
+      ],
+      "related": [
+        "llm",
+        "tool-use",
+        "api",
+        "autonomy"
+      ]
+    },
+    {
+      "id": "benchmark",
+      "name": "Benchmark",
+      "category": "usage",
+      "subcategory": "output-evaluation",
+      "aliases": [
+        "基准测试",
+        "评测基准"
+      ],
+      "definition": "用于标准化评估模型能力的测试数据集和评分方法。Benchmark 让不同模型在相同任务上具有可比性。",
+      "examples": [
+        "MMLU 是评估大模型多学科知识的常见 benchmark。",
+        "HumanEval 用于评估代码生成能力。",
+        "benchmark 得分高不等于实际体验好，需要结合实际场景判断。"
+      ],
+      "related": [
+        "llm",
+        "evaluation",
+        "metrics"
+      ]
     },
     {
       "id": "emergent-ability",
       "name": "Emergent Ability",
       "category": "academic",
       "subcategory": "cognition-ethics",
-      "aliases": ["涌现能力"],
+      "aliases": [
+        "涌现能力"
+      ],
       "definition": "随模型规模、数据量或训练计算量增长而突然出现的能力，这些能力在较小模型中并不存在或表现很弱。",
       "examples": [
         "大语言模型在参数达到一定规模后突然展现出链式推理能力。",
         "多步算术题准确率随模型变大而陡升。",
         "某些翻译能力在中小模型中几乎不存在，在大模型中突然显现。"
       ],
-      "related": ["scaling-law", "skill", "chain-of-thought"]
+      "related": [
+        "skill",
+        "chain-of-thought",
+        "parameter"
+      ]
+    },
+    {
+      "id": "interpretability",
+      "name": "Interpretability",
+      "category": "academic",
+      "subcategory": "cognition-ethics",
+      "aliases": [
+        "可解释性"
+      ],
+      "definition": "研究如何理解和解释 AI 模型内部工作机制与决策原因的领域。高可解释性有助于建立信任、发现偏见和排查错误。",
+      "examples": [
+        "通过注意力权重可视化模型关注了哪些词。",
+        "分析神经元以理解模型如何表示某个概念。",
+        "可解释性在医疗、金融等高风险应用中尤为重要。"
+      ],
+      "related": [
+        "llm",
+        "alignment",
+        "bias",
+        "neuron"
+      ]
+    },
+    {
+      "id": "bias",
+      "name": "Bias",
+      "category": "academic",
+      "subcategory": "society-impact",
+      "aliases": [
+        "偏见",
+        "偏差"
+      ],
+      "definition": "AI 系统在数据、算法或应用过程中表现出的系统性不公平倾向。Bias 可能来自训练数据，也可能来自设计选择。",
+      "examples": [
+        "人脸识别系统对某些肤色群体准确率较低。",
+        "招聘 AI 可能因历史数据而歧视特定性别。",
+        "减少 bias 需要多样化数据、公平性评估和持续监督。"
+      ],
+      "related": [
+        "fairness",
+        "training-data",
+        "toxicity",
+        "safety"
+      ]
+    },
+    {
+      "id": "agi",
+      "name": "AGI",
+      "category": "academic",
+      "subcategory": "philosophy-ontology",
+      "aliases": [
+        "Artificial General Intelligence",
+        "通用人工智能"
+      ],
+      "definition": "在大多数认知任务上达到或超越人类水平的通用人工智能。AGI 是 AI 研究的长期目标之一，但其定义和时间表存在广泛争议。",
+      "examples": [
+        "AGI 应能像人类一样学习任意新任务。",
+        "当前 LLM 虽强，但通常不被认为是 AGI。",
+        "关于 AGI 何时到来、如何安全开发，学界和产业界意见不一。"
+      ],
+      "related": [
+        "llm",
+        "singularity",
+        "alignment",
+        "safety"
+      ]
+    },
+    {
+      "id": "singularity",
+      "name": "Singularity",
+      "category": "academic",
+      "subcategory": "philosophy-ontology",
+      "aliases": [
+        "技术奇点"
+      ],
+      "definition": "假想的未来时刻：人工智能能力发生递归式自我改进，导致技术和社会发生不可预测的根本性变革。Singularity 更多是一个思想实验而非科学共识。",
+      "examples": [
+        "如果 AI 能设计比自身更强大的 AI，可能触发奇点。",
+        "奇点假设引发了对控制和安全的深刻讨论。",
+        "并非所有研究者都认为奇点必然发生。"
+      ],
+      "related": [
+        "agi",
+        "alignment",
+        "safety"
+      ]
     }
   ]
 }

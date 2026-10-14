@@ -301,4 +301,5 @@ http://localhost:8000
 ## 9. 记录
 
 - 创建日期：2026-10-14
-- 初始词条：Skill、Harmfulness、Prompt、Alignment、Emergent Ability
+- Demo 版词条：共 35 个，覆盖技术、使用、学术三大分类
+- 首批示例：Skill、Harmfulness、Prompt、Alignment、Emergent Ability、LLM、Transformer、Token、RAG、Agent、AGI 等
