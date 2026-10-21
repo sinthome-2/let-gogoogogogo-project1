@@ -350,6 +350,34 @@ html, body {
   opacity: 0.8;
 }
 
+.term-detail .tldr {
+  margin: -8px 0 20px;
+  padding: 10px 14px;
+  background: #f0fdf4;
+  border-left: 4px solid #22c55e;
+  color: #15803d;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.source-list {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+.source-list li {
+  margin-bottom: 6px;
+}
+
+.source-list a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.source-list a:hover {
+  text-decoration: underline;
+}
+
 /* ===== 搜索结果 ===== */
 .search-meta {
   color: var(--text-muted);

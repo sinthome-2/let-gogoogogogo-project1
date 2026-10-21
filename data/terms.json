@@ -62,6 +62,68 @@
         "parameter",
         "attention",
         "embedding"
+      ],
+      "tldr": "用自注意力一次性看完整句的序列模型架构。",
+      "misconceptions": [
+        "Transformer 只能用于文本。",
+        "注意力权重直接对应可解释性。"
+      ],
+      "sources": [
+        {
+          "title": "Attention Is All You Need",
+          "url": "https://arxiv.org/abs/1706.03762"
+        },
+        {
+          "title": "The Illustrated Transformer",
+          "url": "https://jalammar.github.io/illustrated-transformer/"
+        }
+      ],
+      "related_reading": [
+        "attention",
+        "llm",
+        "neural-network"
+      ]
+    },
+    {
+      "id": "neural-network",
+      "name": "Neural Network",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "神经网络",
+        "人工神经网络"
+      ],
+      "definition": "由大量相互连接的人工神经元组成的计算模型，通过调整连接权重来学习从输入到输出的映射。神经网络是深度学习和现代 AI 的基础。",
+      "examples": [
+        "全连接网络、卷积网络（CNN）和循环网络（RNN）都是神经网络的常见变体。",
+        "神经网络通过前向传播计算输出，通过反向传播更新权重。",
+        "深度神经网络可以自动学习图像、文本和语音中的层次特征。"
+      ],
+      "related": [
+        "transformer",
+        "backpropagation",
+        "parameter",
+        "attention"
+      ],
+      "tldr": "由大量简单计算单元连接而成的可学习函数逼近器。",
+      "misconceptions": [
+        "神经网络和人脑工作方式完全相同。",
+        "层数越多就一定越好。"
+      ],
+      "sources": [
+        {
+          "title": "Neural Networks and Deep Learning",
+          "url": "http://neuralnetworksanddeeplearning.com/"
+        },
+        {
+          "title": "Wikipedia: Artificial neural network",
+          "url": "https://en.wikipedia.org/wiki/Artificial_neural_network"
+        }
+      ],
+      "related_reading": [
+        "transformer",
+        "backpropagation",
+        "parameter"
       ]
     },
     {
@@ -2013,6 +2075,26 @@
         "neural-network",
         "knowledge-graph",
         "reasoning"
+      ],
+      "tldr": "用显式规则和符号进行推理的 AI 范式。",
+      "misconceptions": [
+        "符号 AI 已经被神经网络完全取代。",
+        "符号 AI 不能处理不确定性。"
+      ],
+      "sources": [
+        {
+          "title": "Stanford Encyclopedia: Symbolic AI",
+          "url": "https://plato.stanford.edu/entries/logic-ai/"
+        },
+        {
+          "title": "Wikipedia: Symbolic artificial intelligence",
+          "url": "https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence"
+        }
+      ],
+      "related_reading": [
+        "neural-network",
+        "agi",
+        "llm"
       ]
     },
     {
