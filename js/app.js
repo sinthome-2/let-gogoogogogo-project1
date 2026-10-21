@@ -7,7 +7,8 @@
 
   const state = {
     categories: [],
-    terms: []
+    terms: [],
+    index: null
   };
 
   const els = {
@@ -33,6 +34,16 @@
 
       state.categories = catData.categories || [];
       state.terms = termData.terms || [];
+
+      try {
+        const idxRes = await fetch('data/term-index.json');
+        if (idxRes.ok) {
+          const idxData = await idxRes.json();
+          state.index = idxData.terms || null;
+        }
+      } catch (err) {
+        console.warn('拼音索引加载失败，搜索将不使用拼音索引', err);
+      }
 
       renderSidebar();
       setupSearch();
@@ -363,7 +374,7 @@
   // ===== 渲染：搜索结果 =====
 
   function renderSearchResults(query) {
-    const results = Search.search(state.terms, query);
+    const results = Search.search(state.terms, query, state.index);
 
     updateSidebarActive(null, null);
     els.searchInput.value = decodeURIComponent(query);
