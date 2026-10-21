@@ -178,6 +178,12 @@ const Search = (function () {
 })();
 ```
 
+搜索模块已支持：
+- 多关键词 AND 匹配（如 `prompt engineering`）
+- 引号短语匹配（如 `"GPT-4o"`）
+- 字段扩容到示例、一句话速记、常见误解、来源标题
+- 拼音全拼与首字母索引（如 `zhq` → Transformer）
+
 ### 5.3 `js/app.js`
 
 主应用逻辑负责：加载 JSON、渲染侧边栏、处理路由、渲染详情与搜索结果。

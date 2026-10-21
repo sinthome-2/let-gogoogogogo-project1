@@ -35,6 +35,17 @@
       state.categories = catData.categories || [];
       state.terms = termData.terms || [];
 
+      // 建立子类 id → 中文名映射，并注入词条，用于搜索
+      const subcategoryMap = new Map();
+      for (const category of state.categories) {
+        for (const sub of category.subcategories || []) {
+          subcategoryMap.set(sub.id, sub.name);
+        }
+      }
+      for (const term of state.terms) {
+        term._subcategoryName = subcategoryMap.get(term.subcategory) || '';
+      }
+
       try {
         const idxRes = await fetch('data/term-index.json');
         if (idxRes.ok) {
