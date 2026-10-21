@@ -13,6 +13,32 @@
     });
   }
 
+  function initTheme() {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+    updateBtn();
+
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme')
+        || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateBtn();
+    });
+
+    function updateBtn() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+        || (!document.documentElement.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+      btn.textContent = isDark ? '☀️' : '🌙';
+    }
+  }
+
   const state = {
     categories: [],
     terms: [],
@@ -507,5 +533,6 @@
 
   // ===== 启动 =====
 
+  initTheme();
   init();
 })();
