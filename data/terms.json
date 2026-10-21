@@ -436,8 +436,7 @@
       "category": "technical",
       "subcategory": "safety-alignment",
       "aliases": [
-        "对齐",
-        "价值对齐"
+        "对齐"
       ],
       "definition": "使 AI 系统的目标、行为和输出与人类意图、价值观及偏好保持一致的过程与状态。对齐问题是当前 AI 安全研究的核心议题。",
       "examples": [
