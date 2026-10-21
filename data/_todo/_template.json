@@ -1,0 +1,33 @@
+{
+  "_comment": "词条填充模板：复制整个对象到 data/terms.json 的 terms 数组中，替换为实际内容。所有字段除 id/name/category/subcategory/definition 外均为可选。",
+  "id": "term-id-kebab-case",
+  "name": "Term Name",
+  "category": "technical",
+  "subcategory": "model-architecture",
+  "aliases": [
+    "中文别名一",
+    "中文别名二"
+  ],
+  "definition": "术语的完整解释。",
+  "examples": [
+    "示例一",
+    "示例二"
+  ],
+  "related": [
+    "existing-term-id"
+  ],
+  "tldr": "一句话速记。",
+  "misconceptions": [
+    "常见误解一",
+    "常见误解二"
+  ],
+  "sources": [
+    {
+      "title": "来源标题",
+      "url": "https://example.com"
+    }
+  ],
+  "related_reading": [
+    "existing-term-id"
+  ]
+}
