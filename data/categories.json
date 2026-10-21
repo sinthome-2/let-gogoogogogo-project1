@@ -3,6 +3,8 @@
     {
       "id": "technical",
       "name": "技术",
+      "order": 1,
+      "icon": "⚙️",
       "description": "与 AI 系统实现、训练、部署、安全相关的术语。",
       "subcategories": [
         {
@@ -35,6 +37,8 @@
     {
       "id": "usage",
       "name": "使用",
+      "order": 2,
+      "icon": "🧭",
       "description": "与如何调用、提示、评估和应用 AI 相关的术语。",
       "subcategories": [
         {
@@ -67,6 +71,8 @@
     {
       "id": "academic",
       "name": "学术",
+      "order": 3,
+      "icon": "🎓",
       "description": "与 AI 研究、伦理、社会影响及跨学科概念相关的术语。",
       "subcategories": [
         {

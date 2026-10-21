@@ -29,6 +29,16 @@ function main() {
     validCategories.set(cat.id, new Set(cat.subcategories.map(s => s.id)));
   }
 
+  // 0. 检查分类元数据
+  for (const cat of categories) {
+    if (cat.order !== undefined && typeof cat.order !== 'number') {
+      errors.push(`[category-meta] 分类 "${cat.id}" 的 order 必须是数字`);
+    }
+    if (cat.icon !== undefined && typeof cat.icon !== 'string') {
+      errors.push(`[category-meta] 分类 "${cat.id}" 的 icon 必须是字符串`);
+    }
+  }
+
   // 1. 检查 category / subcategory 是否合法
   for (const term of terms) {
     if (!validCategories.has(term.category)) {
