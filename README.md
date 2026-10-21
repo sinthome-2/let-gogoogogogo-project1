@@ -102,7 +102,12 @@ pnpm test
 ```bash
 # 校验词条数据
 pnpm validate
+
+# 重建拼音索引
+pnpm index
 ```
+
+搜索除词条名称、别名和定义外，还支持拼音全拼与首字母匹配（如 `zhq` → Transformer）。
 
 ## 技术栈
 
