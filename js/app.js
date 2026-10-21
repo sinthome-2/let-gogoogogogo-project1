@@ -280,7 +280,10 @@
           term.related.map(id => {
             const relatedTerm = getTerm(id);
             const label = relatedTerm ? relatedTerm.name : id;
-            return `<a href="#term/${escapeHtml(id)}">${escapeHtml(label)}</a>`;
+            if (relatedTerm) {
+              return `<a href="#term/${escapeHtml(id)}">${escapeHtml(label)}</a>`;
+            }
+            return `<span class="related-missing">${escapeHtml(label)}<small>（待收录）</small></span>`;
           }).join('')
         }</div>`
       : '<p>暂无相关词条。</p>';
