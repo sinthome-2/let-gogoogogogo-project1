@@ -397,6 +397,20 @@
 
     if (results.length === 0) {
       html += `<div class="empty-state">未找到匹配的词条，请尝试其他关键词。</div>`;
+
+      const decodedQuery = decodeURIComponent(query);
+      const suggestions = Search.suggest(state.terms, decodedQuery, state.index);
+      if (suggestions.length > 0) {
+        html += `<div class="search-suggestions">
+          <strong>你是不是想找：</strong>
+          ${suggestions.map(t => `<a href="#term/${escapeHtml(t.id)}" class="suggestion-link">${escapeHtml(t.name)}</a>`).join('、')}
+        </div>`;
+      }
+
+      const issueTitle = '【词条收录】' + decodedQuery;
+      html += `<div class="search-submit">
+        <a href="https://github.com/sinthome-2/let-gogoogogogo-project1/issues/new?title=${encodeURIComponent(issueTitle)}" target="_blank" rel="noopener noreferrer" class="submit-term-btn">提交这个词条</a>
+      </div>`;
     } else {
       html += '<div class="search-list">';
       results.forEach(term => {
