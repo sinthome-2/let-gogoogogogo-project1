@@ -407,7 +407,7 @@
           <div class="search-item" data-term-id="${escapeHtml(term.id)}" tabindex="0" role="button">
             <h4>${escapeHtml(term.name)}</h4>
             ${aliases ? `<div class="aliases">${aliases}</div>` : ''}
-            <div class="snippet">${escapeHtml(term.definition.slice(0, 120))}…</div>
+            <div class="snippet">${Search.buildSnippet(term, decodeURIComponent(query), state.index)}</div>
           </div>
         `;
       });

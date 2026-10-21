@@ -76,6 +76,122 @@ const Search = (function () {
     return { full, initials };
   }
 
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function findTokenPositions(text, tokens) {
+    const intervals = [];
+    const lower = text.toLowerCase();
+    for (const token of tokens) {
+      const t = token.toLowerCase();
+      if (!t) continue;
+      let pos = 0;
+      while ((pos = lower.indexOf(t, pos)) !== -1) {
+        const end = pos + t.length;
+        const overlap = intervals.some(iv => pos < iv.end && end > iv.start);
+        if (!overlap) {
+          intervals.push({ start: pos, end });
+        }
+        pos = end;
+      }
+    }
+    intervals.sort((a, b) => a.start - b.start);
+    return intervals;
+  }
+
+  /**
+   * 生成带高亮的摘要片段。
+   * @param {Object} term 词条对象
+   * @param {string} query 查询字符串
+   * @param {Object|null} [index] 拼音索引对象
+   * @returns {string} 已转义的 HTML 字符串
+   */
+  function buildSnippet(term, query, index) {
+    const tokens = parseQuery(query)
+      .map(t => t.text)
+      .filter(Boolean)
+      .sort((a, b) => b.length - a.length);
+
+    if (!term || tokens.length === 0) {
+      const fallback = String(term?.name || term?.definition || '').trim();
+      return fallback.length <= 60 ? escapeHtml(fallback) : escapeHtml(fallback.slice(0, 60)) + '…';
+    }
+
+    const nameRaw = String(term.name || '').trim();
+    const aliasesRaw = join(term.aliases);
+    const definitionRaw = String(term.definition || '').trim();
+
+    const fields = [
+      { key: 'name', text: nameRaw },
+      { key: 'aliases', text: aliasesRaw },
+      { key: 'definition', text: definitionRaw }
+    ].filter(f => f.text);
+
+    function hasAnyToken(text) {
+      return tokens.some(t => text.toLowerCase().includes(t.toLowerCase()));
+    }
+
+    let chosenField = null;
+    for (const field of fields) {
+      if (hasAnyToken(field.text)) {
+        chosenField = field;
+        break;
+      }
+    }
+
+    // 字面未命中（如纯拼音）→ fallback 到 name 开头，无 mark
+    if (!chosenField) {
+      const fallback = nameRaw || String(term.name || '');
+      return fallback.length <= 60 ? escapeHtml(fallback) : escapeHtml(fallback.slice(0, 60)) + '…';
+    }
+
+    // 以命中的字段为锚点，在 name + aliases + definition 的拼接文本中取窗口
+    const separator = ' ';
+    const combined = fields.map(f => f.text).join(separator);
+    const fieldStart = fields
+      .slice(0, fields.findIndex(f => f.key === chosenField.key))
+      .reduce((sum, f) => sum + f.text.length + separator.length, 0);
+
+    const fieldLower = chosenField.text.toLowerCase();
+    let firstPos = Infinity;
+    for (const t of tokens) {
+      const idx = fieldLower.indexOf(t.toLowerCase());
+      if (idx !== -1 && idx < firstPos) {
+        firstPos = idx;
+      }
+    }
+    if (firstPos === Infinity) firstPos = 0;
+
+    const globalHitPos = fieldStart + firstPos;
+    let start = Math.max(0, globalHitPos - 30);
+    let end = Math.min(combined.length, start + 60);
+    if (end - start < 60) {
+      start = Math.max(0, end - 60);
+    }
+
+    const snippet = combined.slice(start, end);
+    const prefix = start > 0 ? '…' : '';
+    const suffix = end < combined.length ? '…' : '';
+
+    const intervals = findTokenPositions(snippet, tokens);
+    let html = prefix;
+    let last = 0;
+    for (const iv of intervals) {
+      html += escapeHtml(snippet.slice(last, iv.start));
+      html += '<mark>' + escapeHtml(snippet.slice(iv.start, iv.end)) + '</mark>';
+      last = iv.end;
+    }
+    html += escapeHtml(snippet.slice(last));
+    html += suffix;
+    return html;
+  }
+
   /**
    * 计算词条与查询字符串的匹配分数。
    * @param {Object} term 词条对象
@@ -203,5 +319,5 @@ const Search = (function () {
       .map(item => item.term);
   }
 
-  return { search };
+  return { search, buildSnippet };
 })();
