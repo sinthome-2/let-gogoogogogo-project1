@@ -1,0 +1,10 @@
+{
+  "name": "ai-terms-site",
+  "private": true,
+  "scripts": {
+    "test": "vitest run --pool=threads"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.5"
+  }
+}

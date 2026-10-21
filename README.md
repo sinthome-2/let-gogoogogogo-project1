@@ -84,6 +84,20 @@ D:\project1
 pandoc docs/PROJECT_DOC.md -o 项目代码.docx
 ```
 
+## 测试
+
+项目使用 [Vitest](https://vitest.dev/) 进行单元测试。
+
+```bash
+pnpm install
+pnpm test
+```
+
+```bash
+# 校验词条数据
+pnpm validate
+```
+
 ## 技术栈
 
 - HTML5
