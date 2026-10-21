@@ -6,6 +6,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { formatGbt7714, formatApa } from './citation.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -138,6 +139,24 @@ function buildTermPage(term, categories, base, termIdSet) {
   ${relatedHtml}
 
   <a class="interactive-link" href="${pageBase}/#term/${term.id}">打开交互版</a>
+
+  <details id="citation">
+    <summary>引用本文</summary>
+    <pre>${escapeHtml(formatGbt7714({ name: term.name, url: canonicalUrl, date: '{{CITE_DATE}}' }))}</pre>
+    <button type="button" data-copy>复制 GB/T 7714</button>
+    <pre>${escapeHtml(formatApa({ name: term.name, url: canonicalUrl, date: '{{CITE_DATE}}' }))}</pre>
+    <button type="button" data-copy>复制 APA</button>
+  </details>
+
+  <script>
+    document.querySelectorAll('button[data-copy]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pre = btn.previousElementSibling;
+        const text = pre.textContent.replace(/{{CITE_DATE}}/g, new Date().toLocaleDateString('sv'));
+        navigator.clipboard.writeText(text).catch(err => console.warn('复制失败', err));
+      });
+    });
+  </script>
 </body>
 </html>
 `;
