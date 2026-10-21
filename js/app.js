@@ -79,15 +79,24 @@
   function renderSidebar() {
     els.sidebar.innerHTML = '';
 
-    state.categories.forEach(category => {
+    const totalTerms = state.terms.length;
+    const sortedCategories = state.categories.slice().sort((a, b) => {
+      const ao = a.order === undefined ? Infinity : a.order;
+      const bo = b.order === undefined ? Infinity : b.order;
+      return ao - bo;
+    });
+
+    sortedCategories.forEach(category => {
       const categoryEl = document.createElement('div');
       categoryEl.className = 'nav-category';
       categoryEl.dataset.categoryId = category.id;
 
+      const termCount = state.terms.filter(t => t.category === category.id).length;
+      const icon = category.icon ? `${category.icon} ` : '';
       const toggle = document.createElement('button');
       toggle.className = 'nav-category-toggle';
       toggle.innerHTML = `
-        <span>${escapeHtml(category.name)}</span>
+        <span>${icon}${escapeHtml(category.name)} (${termCount}/${totalTerms})</span>
         <span class="arrow" aria-hidden="true">▶</span>
       `;
       toggle.addEventListener('click', () => {
