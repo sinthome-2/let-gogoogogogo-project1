@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-function escapeHtml(text) {
+export function escapeHtml(text) {
   return String(text || '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -20,6 +20,21 @@ function escapeHtml(text) {
 
 function hasChinese(text) {
   return /[一-龥]/.test(String(text || ''));
+}
+
+function getDescription(term) {
+  if (term.tldr) return term.tldr;
+  const def = String(term.definition || '').trim();
+  if (def.length <= 80) return def;
+  return def.slice(0, 80) + '…';
+}
+
+function truncateForTitle(name, chineseAlias) {
+  const suffix = '是什么？— AI 术语辞典';
+  if (chineseAlias) {
+    return `${name}（${chineseAlias}）${suffix}`;
+  }
+  return `${name}${suffix}`;
 }
 
 function buildCategoryMaps(categories) {
@@ -39,8 +54,12 @@ function buildTermPage(term, categories, base, termIdSet) {
   const categoryName = catMap.get(term.category) || term.category;
   const subcategoryName = subMap.get(`${term.category}/${term.subcategory}`) || term.subcategory;
   const pageBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  const canonicalUrl = `${pageBase}/term/${term.id}/`;
 
   const chineseAlias = (term.aliases || []).find(hasChinese);
+  const titleText = truncateForTitle(term.name, chineseAlias);
+  const descriptionText = getDescription(term);
+  const descriptionHtml = escapeHtml(descriptionText);
 
   const examplesHtml = term.examples && term.examples.length
     ? `<h2>示例</h2>\n<ul>\n${term.examples.map(ex => `  <li>${escapeHtml(ex)}</li>`).join('\n')}\n</ul>`
@@ -56,13 +75,36 @@ function buildTermPage(term, categories, base, termIdSet) {
       }).join('\n')}\n</ul>`
     : '';
 
+  const ldJson = {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTerm',
+    name: term.name,
+    description: descriptionText,
+    inLanguage: 'zh-CN',
+    url: canonicalUrl,
+    isPartOf: {
+      '@type': 'DefinedTermSet',
+      name: 'AI 术语辞典',
+      url: `${pageBase}/`
+    }
+  };
+  const ldScript = JSON.stringify(ldJson, null, 2).replace(/<\//g, '<\\/');
+
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${escapeHtml(term.name)} - AI 术语辞典</title>
-  <link rel="canonical" href="${pageBase}/term/${term.id}/">
+  <title>${escapeHtml(titleText)}</title>
+  <meta name="description" content="${descriptionHtml}">
+  <meta property="og:title" content="${escapeHtml(titleText)}">
+  <meta property="og:description" content="${descriptionHtml}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="${canonicalUrl}">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="${pageBase}/assets/favicon.svg">
+  <link rel="canonical" href="${canonicalUrl}">
+  <script type="application/ld+json">\n${ldScript}\n  </script>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif; line-height: 1.6; max-width: 720px; margin: 0 auto; padding: 24px; color: #1f2937; }
     .breadcrumb { font-size: 0.9rem; color: #6b7280; margin-bottom: 16px; }
@@ -172,4 +214,6 @@ function main() {
   console.log(`Generated ${termCount} term pages, sitemap.xml, robots.txt, .nojekyll`);
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
