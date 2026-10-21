@@ -4,7 +4,8 @@
   "scripts": {
     "test": "vitest run --pool=threads",
     "validate": "node tools/validate.mjs",
-    "index": "node tools/gen-pinyin.mjs"
+    "index": "node tools/gen-pinyin.mjs",
+    "build": "node tools/build-pages.mjs"
   },
   "devDependencies": {
     "pinyin-pro": "^3.29.5",
