@@ -23,10 +23,12 @@ const RUNTIME = 'ai-dict-runtime';
 const PRECACHE_URLS = [
   './',
   'index.html',
+  'flashcards.html',
   'css/style.css',
   'js/app.js',
   'js/search.js',
   'js/utils.js',
+  'js/flashcard.js',
   'assets/favicon.svg'
 ];
 
