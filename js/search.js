@@ -319,5 +319,88 @@ const Search = (function () {
       .map(item => item.term);
   }
 
-  return { search, buildSnippet };
+  function levenshtein(a, b) {
+    if (a === b) return 0;
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    if (Math.abs(a.length - b.length) > 2) return Infinity;
+
+    let prev = new Array(b.length + 1);
+    for (let j = 0; j <= b.length; j++) prev[j] = j;
+
+    for (let i = 0; i < a.length; i++) {
+      const curr = new Array(b.length + 1);
+      curr[0] = i + 1;
+      let rowMin = curr[0];
+      for (let j = 0; j < b.length; j++) {
+        const cost = a[i] === b[j] ? 0 : 1;
+        curr[j + 1] = Math.min(curr[j] + 1, prev[j + 1] + 1, prev[j] + cost);
+        rowMin = Math.min(rowMin, curr[j + 1]);
+      }
+      if (rowMin > 2) return Infinity;
+      prev = curr;
+    }
+    return prev[b.length] <= 2 ? prev[b.length] : Infinity;
+  }
+
+  function normalizeCandidate(text) {
+    return String(text || '').toLowerCase().replace(/\s+/g, '');
+  }
+
+  /**
+   * 未命中时给出拼写建议。
+   * @param {Array<Object>} terms 词条数组
+   * @param {string} query 查询字符串
+   * @param {Object|null} [index] 拼音索引对象
+   * @returns {Array<Object>} 最多 3 个建议词条
+   */
+  function suggest(terms, query, index) {
+    const q = normalizeCandidate(query);
+    if (!q) return [];
+
+    const items = [];
+    for (const term of terms) {
+      const candidates = [normalizeCandidate(term.name)];
+      for (const alias of term.aliases || []) {
+        candidates.push(normalizeCandidate(alias));
+      }
+      const idx = index ? index[term.id] : null;
+      if (idx && idx.initials) {
+        for (const initial of idx.initials) {
+          candidates.push(normalizeCandidate(initial));
+        }
+      }
+
+      let minDist = Infinity;
+      for (let i = 0; i < candidates.length; i++) {
+        const c = candidates[i];
+        const d = levenshtein(q, c);
+        // name/alias 允许 ≤2，initials 只取 ≤1，避免短串误召回
+        const threshold = i === 0 || i <= (term.aliases || []).length ? 2 : 1;
+        if (d <= threshold && d < minDist) minDist = d;
+      }
+
+      if (minDist <= 2) {
+        items.push({ term, dist: minDist });
+      }
+    }
+
+    items.sort((a, b) => {
+      if (a.dist !== b.dist) return a.dist - b.dist;
+      return String(a.term.name || '').localeCompare(String(b.term.name || ''));
+    });
+
+    const seen = new Set();
+    const result = [];
+    for (const item of items) {
+      if (!seen.has(item.term.id)) {
+        seen.add(item.term.id);
+        result.push(item.term);
+        if (result.length >= 3) break;
+      }
+    }
+    return result;
+  }
+
+  return { search, buildSnippet, suggest };
 })();
