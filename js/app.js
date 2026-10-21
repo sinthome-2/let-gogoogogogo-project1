@@ -368,44 +368,40 @@
   }
 
   function handleHash() {
-    const hash = decodeURIComponent(location.hash.replace(/^#\/?/, '')).trim();
+    const route = Utils.parseHash(location.hash);
 
-    if (!hash) {
-      renderHome();
-      return;
-    }
-
-    const parts = hash.split('/');
-    const view = parts[0];
-
-    switch (view) {
+    switch (route.view) {
       case 'term':
-        if (parts[1]) renderTermDetail(parts[1]);
-        else renderHome();
+        renderTermDetail(route.termId);
         break;
       case 'category':
-        if (parts[1] && parts[2]) renderSubcategory(parts[1], parts[2]);
-        else renderHome();
+        renderSubcategory(route.categoryId, route.subcategoryId);
         break;
       case 'search':
-        if (parts[1]) renderSearchResults(parts[1]);
-        else renderHome();
+        renderSearchResults(route.query);
         break;
+      case 'home':
       default:
         renderHome();
+        break;
     }
   }
 
   // ===== 搜索框 =====
 
   function setupSearch() {
+    const debouncedSearch = Utils.debounce((q) => {
+      if (q) {
+        // 使用 replaceState 避免每次输入都产生新的历史记录
+        history.replaceState(null, '', `#search/${encodeURIComponent(q)}`);
+        handleHash();
+      }
+      // 清空搜索时：不回首页，保持当前页面
+    }, 150);
+
     els.searchInput.addEventListener('input', (e) => {
       const q = e.target.value.trim();
-      if (q) {
-        location.hash = `#search/${encodeURIComponent(q)}`;
-      } else {
-        location.hash = '';
-      }
+      debouncedSearch(q);
     });
   }
 
