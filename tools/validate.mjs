@@ -93,12 +93,65 @@ function main() {
     }
   }
 
+  // 5. 检查扩展字段类型与 related_reading 悬空引用
+  const relatedReadingDangling = [];
+  for (const term of terms) {
+    if (term.tldr !== undefined && typeof term.tldr !== 'string') {
+      errors.push(`[schema] 词条 "${term.id}" 的 tldr 必须是字符串`);
+    }
+    if (term.misconceptions !== undefined) {
+      if (!Array.isArray(term.misconceptions)) {
+        errors.push(`[schema] 词条 "${term.id}" 的 misconceptions 必须是数组`);
+      } else {
+        for (const m of term.misconceptions) {
+          if (typeof m !== 'string') {
+            errors.push(`[schema] 词条 "${term.id}" 的 misconceptions 必须全为字符串`);
+            break;
+          }
+        }
+      }
+    }
+    if (term.sources !== undefined) {
+      if (!Array.isArray(term.sources)) {
+        errors.push(`[schema] 词条 "${term.id}" 的 sources 必须是数组`);
+      } else {
+        for (const s of term.sources) {
+          if (!s || typeof s !== 'object' || typeof s.title !== 'string' || typeof s.url !== 'string') {
+            errors.push(`[schema] 词条 "${term.id}" 的 sources 项必须含 title/url 字符串`);
+            break;
+          }
+        }
+      }
+    }
+    if (term.related_reading !== undefined) {
+      if (!Array.isArray(term.related_reading)) {
+        errors.push(`[schema] 词条 "${term.id}" 的 related_reading 必须是数组`);
+      } else {
+        for (const id of term.related_reading) {
+          if (typeof id !== 'string') {
+            errors.push(`[schema] 词条 "${term.id}" 的 related_reading 必须全为字符串 id`);
+            break;
+          }
+          if (!termIds.has(id)) {
+            relatedReadingDangling.push({ from: term.id, to: id });
+          }
+        }
+      }
+    }
+  }
+  if (relatedReadingDangling.length > 0) {
+    for (const { from, to } of relatedReadingDangling) {
+      errors.push(`[dangling-related_reading] 词条 "${from}" 的扩展阅读引用了不存在的 "${to}"`);
+    }
+  }
+
   // 输出统计
   console.log(`词条总数: ${terms.length}`);
   console.log(`分类数: ${categories.length}`);
   console.log(`悬空 related: ${dangling.length}`);
+  console.log(`悬空 related_reading: ${relatedReadingDangling.length}`);
   console.log(`别名冲突: ${aliasConflicts.length}`);
-  console.log(`其他错误: ${errors.length - dangling.length - aliasConflicts.length}`);
+  console.log(`其他错误: ${errors.length - dangling.length - aliasConflicts.length - relatedReadingDangling.length}`);
   console.log(`总错误: ${errors.length}`);
 
   if (errors.length > 0) {

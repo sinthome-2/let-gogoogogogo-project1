@@ -67,7 +67,7 @@ D:\project1
 
 ### 4.2 `data/terms.json`
 
-词条采用平铺数组，通过 `category` 和 `subcategory` 字段挂接到层级，便于搜索：
+词条采用平铺数组，通过 `category` 和 `subcategory` 字段挂接到层级，便于搜索。字段分为必填与可选两类，所有可选字段缺失时旧词条渲染保持不变：
 
 ```json
 {
@@ -80,11 +80,24 @@ D:\project1
       "aliases": ["能力", "技能"],
       "definition": "模型在特定任务上表现出的稳定能力...",
       "examples": ["代码生成 skill", "多语言翻译 skill"],
-      "related": ["capability", "fine-tuning"]
+      "related": ["capability", "fine-tuning"],
+      "tldr": "一句话速记（可选）",
+      "misconceptions": ["常见误解一", "常见误解二"],
+      "sources": [
+        { "title": "来源标题", "url": "https://example.com" }
+      ],
+      "related_reading": ["existing-term-id"]
     }
   ]
 }
 ```
+
+可选字段说明：
+
+- `tldr`：字符串，一句话速记。
+- `misconceptions`：字符串数组，常见误解。
+- `sources`：对象数组，每项必须包含 `title` 和 `url` 字符串。
+- `related_reading`：字符串数组，扩展阅读词条 id；不存在的 id 会渲染为"待收录"。
 
 ## 5. 核心代码
 
@@ -260,11 +273,17 @@ function handleHash() {
   "aliases": ["中文别名一", "中文别名二"],
   "definition": "术语的完整解释。",
   "examples": ["示例一", "示例二"],
-  "related": ["related-term-id"]
+  "related": ["related-term-id"],
+  "tldr": "一句话速记（可选）。",
+  "misconceptions": ["常见误解一", "常见误解二"],
+  "sources": [
+    { "title": "来源标题", "url": "https://example.com" }
+  ],
+  "related_reading": ["existing-term-id"]
 }
 ```
 
-3. `category` 和 `subcategory` 必须与 `data/categories.json` 中的 `id` 一致。
+3. `category` 和 `subcategory` 必须与 `data/categories.json` 中的 `id` 一致；`tldr`、`misconceptions`、`sources`、`related_reading` 为可选字段，缺失不影响旧词条渲染。
 4. 保存后刷新浏览器即可看到新词条。
 
 ## 7. 如何预览

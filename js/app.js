@@ -288,6 +288,35 @@
         }</div>`
       : '<p>暂无相关词条。</p>';
 
+    const tldrHtml = term.tldr
+      ? `<div class="tldr">${escapeHtml(term.tldr)}</div>`
+      : '';
+
+    const misconceptionsHtml = term.misconceptions && term.misconceptions.length
+      ? `<h3>常见误解</h3><ul>${term.misconceptions.map(m => `<li>${escapeHtml(m)}</li>`).join('')}</ul>`
+      : '';
+
+    const sourcesHtml = term.sources && term.sources.length
+      ? `<h3>参考来源</h3><ul class="source-list">${
+          term.sources.map(s =>
+            `<li><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.title)}</a></li>`
+          ).join('')
+        }</ul>`
+      : '';
+
+    const relatedReadingHtml = term.related_reading && term.related_reading.length
+      ? `<h3>扩展阅读</h3><div class="related-tags">${
+          term.related_reading.map(id => {
+            const relatedTerm = getTerm(id);
+            const label = relatedTerm ? relatedTerm.name : id;
+            if (relatedTerm) {
+              return `<a href="#term/${escapeHtml(id)}">${escapeHtml(label)}</a>`;
+            }
+            return `<span class="related-missing">${escapeHtml(label)}<small>（待收录）</small></span>`;
+          }).join('')
+        }</div>`
+      : '';
+
     els.content.innerHTML = `
       <nav class="breadcrumb">
         <a href="#">首页</a>
@@ -302,6 +331,7 @@
       <article class="term-detail">
         <h2>${escapeHtml(term.name)}</h2>
         <div class="aliases">别名：${aliasesHtml}</div>
+        ${tldrHtml}
 
         <h3>定义</h3>
         <p>${escapeHtml(term.definition)}</p>
@@ -309,8 +339,14 @@
         <h3>示例</h3>
         ${examplesHtml}
 
+        ${misconceptionsHtml}
+
+        ${sourcesHtml}
+
         <h3>相关词条</h3>
         ${relatedHtml}
+
+        ${relatedReadingHtml}
       </article>
     `;
   }

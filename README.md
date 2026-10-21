@@ -52,7 +52,7 @@ D:\project1
 
 - **层级浏览**：左侧边栏展示“技术 / 使用 / 学术”三大类及其子类，点击即可浏览词条卡片。
 - **全局搜索**：顶部搜索框实时搜索词条名称、别名和定义。
-- **词条详情**：点击卡片进入详情页，展示定义、示例、相关词条和面包屑导航。
+- **词条详情**：点击卡片进入详情页，展示定义、示例、相关词条、一句话速记、常见误解、参考来源、扩展阅读和面包屑导航。
 - **URL 状态保持**：详情页和分类页通过 hash 路由记录状态，刷新或分享链接后可恢复。
 
 ## 添加新词条
@@ -69,11 +69,17 @@ D:\project1
   "aliases": ["中文别名一", "中文别名二"],
   "definition": "术语的完整解释。",
   "examples": ["示例一", "示例二"],
-  "related": ["related-term-id"]
+  "related": ["related-term-id"],
+  "tldr": "一句话速记（可选）。",
+  "misconceptions": ["常见误解一", "常见误解二"],
+  "sources": [
+    { "title": "来源标题", "url": "https://example.com" }
+  ],
+  "related_reading": ["existing-term-id"]
 }
 ```
 
-3. `category` 和 `subcategory` 必须与 `data/categories.json` 中的 `id` 一致。
+3. `category` 和 `subcategory` 必须与 `data/categories.json` 中的 `id` 一致；新字段全部可选，旧词条不填时渲染与之前完全一致。
 4. 保存后刷新浏览器即可看到新词条。
 
 ## 更新项目代码.docx
