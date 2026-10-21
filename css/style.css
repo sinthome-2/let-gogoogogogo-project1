@@ -498,13 +498,41 @@ html, body {
     flex-direction: column;
   }
 
+  #drawerToggle {
+    display: block;
+    padding: 6px 10px;
+    font-size: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    cursor: pointer;
+  }
+
   .sidebar {
-    position: relative;
-    width: 100%;
+    position: fixed;
+    left: 0;
     top: 0;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-    max-height: 260px;
+    bottom: 0;
+    width: var(--sidebar-width);
+    max-height: none;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 200;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .drawer-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 199;
   }
 
   .content {
@@ -518,5 +546,9 @@ mark {
   color: #5c4400;
   border-radius: 2px;
   padding: 0 2px;
+}
+
+#drawerToggle {
+  display: none;
 }
 
