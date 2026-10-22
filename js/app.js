@@ -45,6 +45,71 @@
     index: null
   };
 
+  let searchHighlightIndex = -1;
+
+  // 纯函数：从数组随机取一项，rng 可注入便于测试
+  function pickRandom(arr, rng) {
+    rng = rng || Math.random;
+    return arr[Math.floor(rng() * arr.length)];
+  }
+  window.pickRandom = pickRandom;
+
+  function setSearchTitle(kw, hasResults) {
+    if (kw && hasResults) {
+      document.title = `搜索：${kw} — AI 术语辞典`;
+    } else {
+      document.title = 'AI 术语辞典';
+    }
+  }
+
+  function readGapLog() {
+    try {
+      const raw = localStorage.getItem('gap-log');
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function writeGapLog(log) {
+    try {
+      localStorage.setItem('gap-log', JSON.stringify(log));
+    } catch (e) {
+      console.warn('写入 gap-log 失败', e);
+    }
+  }
+
+  function logGap(kw) {
+    if (!kw) return;
+    const log = readGapLog();
+    const existing = log.find(item => item.kw === kw);
+    if (existing) {
+      existing.n = (existing.n || 1) + 1;
+    } else {
+      log.push({ kw, n: 1 });
+    }
+    // 上限 200 项，丢最旧
+    while (log.length > 200) log.shift();
+    writeGapLog(log);
+  }
+
+  function exportGapLog() {
+    try {
+      const log = readGapLog();
+      const blob = new Blob([JSON.stringify(log, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'gap-log.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.warn('导出 gap-log 失败', e);
+    }
+  }
+
   const els = {
     sidebar: document.getElementById('sidebar'),
     content: document.getElementById('content'),
@@ -93,6 +158,7 @@
       renderSidebar();
       setupSearch();
       setupRouting();
+      updateFooter();
       handleHash();
     } catch (err) {
       console.error(err);
@@ -210,6 +276,7 @@
   // ===== 渲染：欢迎页 =====
 
   function renderHome() {
+    document.title = 'AI 术语辞典';
     updateSidebarActive(null, null);
     els.searchInput.value = '';
 
@@ -247,6 +314,7 @@
   // ===== 渲染：子类词条列表 =====
 
   function renderSubcategory(categoryId, subcategoryId) {
+    document.title = 'AI 术语辞典';
     const category = getCategory(categoryId);
     const subcategory = getSubcategory(categoryId, subcategoryId);
 
@@ -322,10 +390,12 @@
   function renderTermDetail(termId) {
     const term = getTerm(termId);
     if (!term) {
+      document.title = 'AI 术语辞典';
       els.content.innerHTML = `<div class="error">未找到该词条。</div>`;
       return;
     }
 
+    document.title = `${term.name} — AI 术语辞典`;
     const category = getCategory(term.category);
     const subcategory = getSubcategory(term.category, term.subcategory);
 
@@ -420,19 +490,25 @@
 
   function renderSearchResults(query) {
     const results = Search.search(state.terms, query, state.index);
+    const decodedQuery = decodeURIComponent(query);
 
     updateSidebarActive(null, null);
-    els.searchInput.value = decodeURIComponent(query);
+    els.searchInput.value = decodedQuery;
+    setSearchTitle(decodedQuery, results.length > 0);
 
     let html = `
       <h2 class="page-title">搜索结果</h2>
-      <p class="search-meta">查询“<strong>${escapeHtml(decodeURIComponent(query))}</strong>”，找到 ${results.length} 个结果。</p>
+      <p class="search-meta">查询“<strong>${escapeHtml(decodedQuery)}</strong>”，找到 ${results.length} 个结果。</p>
     `;
 
     if (results.length === 0) {
       html += `<div class="empty-state">未找到匹配的词条，请尝试其他关键词。</div>`;
 
-      const decodedQuery = decodeURIComponent(query);
+      logGap(decodedQuery);
+      html += `<div class="search-submit">
+        <button type="button" id="exportGapLog" class="submit-term-btn">导出缺口 JSON</button>
+      </div>`;
+
       const suggestions = Search.suggest(state.terms, decodedQuery, state.index);
       if (suggestions.length > 0) {
         html += `<div class="search-suggestions">
@@ -447,15 +523,15 @@
       </div>`;
     } else {
       html += '<div class="search-list">';
-      results.forEach(term => {
+      results.forEach((term, i) => {
         const aliases = term.aliases && term.aliases.length
           ? `别名：${term.aliases.map(escapeHtml).join('、')}`
           : '';
         html += `
-          <div class="search-item" data-term-id="${escapeHtml(term.id)}" tabindex="0" role="button">
+          <div class="search-item ${i === 0 ? 'search-highlight' : ''}" data-term-id="${escapeHtml(term.id)}" data-index="${i}" tabindex="0" role="button">
             <h4>${escapeHtml(term.name)}</h4>
             ${aliases ? `<div class="aliases">${aliases}</div>` : ''}
-            <div class="snippet">${Search.buildSnippet(term, decodeURIComponent(query), state.index)}</div>
+            <div class="snippet">${Search.buildSnippet(term, decodedQuery, state.index)}</div>
           </div>
         `;
       });
@@ -463,6 +539,12 @@
     }
 
     els.content.innerHTML = html;
+    searchHighlightIndex = results.length > 0 ? 0 : -1;
+
+    const exportBtn = document.getElementById('exportGapLog');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', exportGapLog);
+    }
 
     // 绑定点击事件
     els.content.querySelectorAll('.search-item').forEach(item => {
@@ -519,8 +601,49 @@
 
     els.searchInput.addEventListener('input', (e) => {
       const q = e.target.value.trim();
+      searchHighlightIndex = -1;
       debouncedSearch(q);
     });
+
+    els.searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        moveSearchHighlight(1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        moveSearchHighlight(-1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        openSearchHighlight();
+      } else if (e.key === 'Escape') {
+        e.target.value = '';
+        searchHighlightIndex = -1;
+        setSearchTitle('', false);
+        history.replaceState(null, '', '#');
+        handleHash();
+      }
+    });
+  }
+
+  function getSearchItems() {
+    return Array.from(els.content.querySelectorAll('.search-item'));
+  }
+
+  function moveSearchHighlight(delta) {
+    const items = getSearchItems();
+    if (items.length === 0) return;
+    items.forEach(item => item.classList.remove('search-highlight'));
+    searchHighlightIndex = (searchHighlightIndex + delta + items.length) % items.length;
+    items[searchHighlightIndex].classList.add('search-highlight');
+    items[searchHighlightIndex].scrollIntoView({ block: 'nearest' });
+  }
+
+  function openSearchHighlight() {
+    const items = getSearchItems();
+    if (items.length === 0) return;
+    const idx = searchHighlightIndex >= 0 ? searchHighlightIndex : 0;
+    const id = items[idx].dataset.termId;
+    if (id) location.hash = `#term/${id}`;
   }
 
   // ===== 工具函数 =====
@@ -531,8 +654,37 @@
     return div.innerHTML;
   }
 
+  function setupKeyboard() {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && !['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
+        e.preventDefault();
+        els.searchInput.focus();
+      }
+    });
+  }
+
+  function setupRandomTerm() {
+    const btn = document.getElementById('randomTerm');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      if (state.terms.length === 0) return;
+      const term = pickRandom(state.terms);
+      window.location.href = `./term/${term.id}/`;
+    });
+  }
+
+  function updateFooter() {
+    const el = document.getElementById('termCount');
+    if (el) el.textContent = state.terms.length;
+  }
+
   // ===== 启动 =====
 
-  initTheme();
-  init();
+  // 在缺少页面骨架时（如测试环境）不启动数据与渲染流程
+  if (els.sidebar && els.content && els.searchInput) {
+    initTheme();
+    init();
+    setupKeyboard();
+    setupRandomTerm();
+  }
 })();
