@@ -27,6 +27,22 @@
         "tyrgzn"
       ]
     },
+    "ai-governance": {
+      "pinyin": [
+        "A I   zhi li"
+      ],
+      "initials": [
+        "AI zl"
+      ]
+    },
+    "algorithm": {
+      "pinyin": [
+        "suan fa"
+      ],
+      "initials": [
+        "sf"
+      ]
+    },
     "alignment": {
       "pinyin": [
         "dui qi"
@@ -69,12 +85,28 @@
         "zdh"
       ]
     },
+    "autonomy": {
+      "pinyin": [
+        "zi zhu xing"
+      ],
+      "initials": [
+        "zzx"
+      ]
+    },
     "backpropagation": {
       "pinyin": [
         "fan xiang chuan bo"
       ],
       "initials": [
         "fxcb"
+      ]
+    },
+    "batch-size": {
+      "pinyin": [
+        "pi da xiao"
+      ],
+      "initials": [
+        "pdx"
       ]
     },
     "bayesian": {
@@ -93,6 +125,14 @@
       "initials": [
         "jzcs",
         "pcjz"
+      ]
+    },
+    "bert": {
+      "pinyin": [
+        "bo te"
+      ],
+      "initials": [
+        "bt"
       ]
     },
     "bias": {
@@ -135,6 +175,14 @@
         "zwfj"
       ]
     },
+    "classification": {
+      "pinyin": [
+        "fen lei"
+      ],
+      "initials": [
+        "fl"
+      ]
+    },
     "code-generation": {
       "pinyin": [
         "dai ma sheng cheng"
@@ -143,12 +191,36 @@
         "dmsc"
       ]
     },
+    "cognition": {
+      "pinyin": [
+        "ren zhi"
+      ],
+      "initials": [
+        "rz"
+      ]
+    },
+    "consciousness": {
+      "pinyin": [
+        "yi shi"
+      ],
+      "initials": [
+        "ys"
+      ]
+    },
     "constitutional-ai": {
       "pinyin": [
         "xian fa   A I"
       ],
       "initials": [
         "xf AI"
+      ]
+    },
+    "content-moderation": {
+      "pinyin": [
+        "nei rong shen he"
+      ],
+      "initials": [
+        "nrsh"
       ]
     },
     "context-window": {
@@ -203,12 +275,46 @@
         "sdwz"
       ]
     },
+    "deployment": {
+      "pinyin": [
+        "bu shu",
+        "shang xian"
+      ],
+      "initials": [
+        "bs",
+        "sx"
+      ]
+    },
+    "diffusion-model": {
+      "pinyin": [
+        "kuo san mo xing"
+      ],
+      "initials": [
+        "ksmx"
+      ]
+    },
+    "digital-divide": {
+      "pinyin": [
+        "shu zi hong gou"
+      ],
+      "initials": [
+        "szhg"
+      ]
+    },
     "distillation": {
       "pinyin": [
         "zhi shi zheng liu"
       ],
       "initials": [
         "zszl"
+      ]
+    },
+    "dropout": {
+      "pinyin": [
+        "sui ji shi huo"
+      ],
+      "initials": [
+        "sjsh"
       ]
     },
     "edge-deployment": {
@@ -253,6 +359,56 @@
         "s"
       ]
     },
+    "epoch": {
+      "pinyin": [
+        "lun ci",
+        "dai"
+      ],
+      "initials": [
+        "lc",
+        "d"
+      ]
+    },
+    "ethics": {
+      "pinyin": [
+        "lun li"
+      ],
+      "initials": [
+        "ll"
+      ]
+    },
+    "evaluation": {
+      "pinyin": [
+        "ping gu"
+      ],
+      "initials": [
+        "pg"
+      ]
+    },
+    "factuality": {
+      "pinyin": [
+        "shi shi xing"
+      ],
+      "initials": [
+        "ssx"
+      ]
+    },
+    "fairness": {
+      "pinyin": [
+        "gong ping xing"
+      ],
+      "initials": [
+        "gpx"
+      ]
+    },
+    "feedback-loop": {
+      "pinyin": [
+        "fan kui hui lu"
+      ],
+      "initials": [
+        "fkhl"
+      ]
+    },
     "few-shot": {
       "pinyin": [
         "shao yang ben xue xi",
@@ -279,6 +435,40 @@
       "initials": [
         "jcmx",
         "jzmx"
+      ]
+    },
+    "generalization": {
+      "pinyin": [
+        "fan hua",
+        "fan hua neng li"
+      ],
+      "initials": [
+        "fh",
+        "fhnl"
+      ]
+    },
+    "generative-ai": {
+      "pinyin": [
+        "sheng cheng shi   A I"
+      ],
+      "initials": [
+        "scs AI"
+      ]
+    },
+    "gpt": {
+      "pinyin": [
+        "sheng cheng shi yu xun lian bian huan qi"
+      ],
+      "initials": [
+        "scsyxlbhq"
+      ]
+    },
+    "gpu": {
+      "pinyin": [
+        "tu xing chu li qi"
+      ],
+      "initials": [
+        "txclq"
       ]
     },
     "gradient-descent": {
@@ -381,12 +571,44 @@
         "qxcb"
       ]
     },
+    "information-extraction": {
+      "pinyin": [
+        "xin xi chou qu"
+      ],
+      "initials": [
+        "xxcq"
+      ]
+    },
+    "information-theory": {
+      "pinyin": [
+        "xin xi lun"
+      ],
+      "initials": [
+        "xxl"
+      ]
+    },
+    "instruction-following": {
+      "pinyin": [
+        "zhi ling zun xun"
+      ],
+      "initials": [
+        "zlzx"
+      ]
+    },
     "instruction-tuning": {
       "pinyin": [
         "zhi ling wei tiao"
       ],
       "initials": [
         "zlwt"
+      ]
+    },
+    "intelligence": {
+      "pinyin": [
+        "zhi neng"
+      ],
+      "initials": [
+        "zn"
       ]
     },
     "interpretability": {
@@ -413,6 +635,14 @@
       "initials": [
         "jygwtd",
         "jsxsy"
+      ]
+    },
+    "knowledge-graph": {
+      "pinyin": [
+        "zhi shi tu pu"
+      ],
+      "initials": [
+        "zstp"
       ]
     },
     "latency": {
@@ -465,6 +695,22 @@
         "jqfy"
       ]
     },
+    "media-literacy": {
+      "pinyin": [
+        "mei jie su yang"
+      ],
+      "initials": [
+        "mjsy"
+      ]
+    },
+    "metrics": {
+      "pinyin": [
+        "zhi biao"
+      ],
+      "initials": [
+        "zb"
+      ]
+    },
     "misinformation": {
       "pinyin": [
         "cuo wu xin xi",
@@ -483,6 +729,14 @@
       "initials": [
         "mxdwy",
         "mxck"
+      ]
+    },
+    "moderation": {
+      "pinyin": [
+        "shen he"
+      ],
+      "initials": [
+        "sh"
       ]
     },
     "moe": {
@@ -519,12 +773,36 @@
         "rgsjwl"
       ]
     },
+    "neuron": {
+      "pinyin": [
+        "shen jing yuan"
+      ],
+      "initials": [
+        "sjy"
+      ]
+    },
+    "nlp": {
+      "pinyin": [
+        "zi ran yu yan chu li"
+      ],
+      "initials": [
+        "zryycl"
+      ]
+    },
     "one-hot-encoding": {
       "pinyin": [
         "du re bian ma"
       ],
       "initials": [
         "drbm"
+      ]
+    },
+    "optimization": {
+      "pinyin": [
+        "you hua"
+      ],
+      "initials": [
+        "yh"
       ]
     },
     "optimizer": {
@@ -559,6 +837,14 @@
         "khd"
       ]
     },
+    "philosophy-of-mind": {
+      "pinyin": [
+        "xin ling zhe xue"
+      ],
+      "initials": [
+        "xlzx"
+      ]
+    },
     "playground": {
       "pinyin": [
         "sha he",
@@ -577,12 +863,28 @@
         "yxl"
       ]
     },
+    "preference-data": {
+      "pinyin": [
+        "pian hao shu ju"
+      ],
+      "initials": [
+        "phsj"
+      ]
+    },
     "privacy": {
       "pinyin": [
         "yin si"
       ],
       "initials": [
         "ys"
+      ]
+    },
+    "probability": {
+      "pinyin": [
+        "gai lü"
+      ],
+      "initials": [
+        "gl"
       ]
     },
     "prompt": {
@@ -627,6 +929,14 @@
       ],
       "initials": [
         "jszqsc"
+      ]
+    },
+    "reasoning": {
+      "pinyin": [
+        "tui li neng li"
+      ],
+      "initials": [
+        "tlnl"
       ]
     },
     "red-teaming": {
@@ -703,12 +1013,44 @@
         "AI aq"
       ]
     },
+    "sampling": {
+      "pinyin": [
+        "cai yang"
+      ],
+      "initials": [
+        "cy"
+      ]
+    },
+    "search": {
+      "pinyin": [
+        "sou suo"
+      ],
+      "initials": [
+        "ss"
+      ]
+    },
+    "security": {
+      "pinyin": [
+        "an quan"
+      ],
+      "initials": [
+        "aq"
+      ]
+    },
     "sentiment-analysis": {
       "pinyin": [
         "qing gan fen xi"
       ],
       "initials": [
         "qgfx"
+      ]
+    },
+    "similarity-search": {
+      "pinyin": [
+        "xiang si du jian suo"
+      ],
+      "initials": [
+        "xsdjs"
       ]
     },
     "singularity": {
@@ -729,12 +1071,28 @@
         "jn"
       ]
     },
+    "society-impact": {
+      "pinyin": [
+        "she hui ying xiang"
+      ],
+      "initials": [
+        "shyx"
+      ]
+    },
     "speech-recognition": {
       "pinyin": [
         "yu yin shi bie"
       ],
       "initials": [
         "yysb"
+      ]
+    },
+    "statistics": {
+      "pinyin": [
+        "tong ji xue"
+      ],
+      "initials": [
+        "tjx"
       ]
     },
     "streaming": {
@@ -755,6 +1113,14 @@
       "initials": [
         "fhzy AI",
         "fh AI"
+      ]
+    },
+    "system": {
+      "pinyin": [
+        "xi tong"
+      ],
+      "initials": [
+        "xt"
       ]
     },
     "system-prompt": {
@@ -813,6 +1179,40 @@
         "lp"
       ]
     },
+    "tokenization": {
+      "pinyin": [
+        "fen ci"
+      ],
+      "initials": [
+        "fc"
+      ]
+    },
+    "tool-use": {
+      "pinyin": [
+        "gong ju diao yong",
+        "gong ju shi yong"
+      ],
+      "initials": [
+        "gjdy",
+        "gjsy"
+      ]
+    },
+    "top-k": {
+      "pinyin": [
+        "T o p - k   cai yang"
+      ],
+      "initials": [
+        "Top-k cy"
+      ]
+    },
+    "top-p": {
+      "pinyin": [
+        "he cai yang"
+      ],
+      "initials": [
+        "hcy"
+      ]
+    },
     "toxicity": {
       "pinyin": [
         "du xing",
@@ -821,6 +1221,14 @@
       "initials": [
         "dx",
         "yhyl"
+      ]
+    },
+    "training": {
+      "pinyin": [
+        "xun lian"
+      ],
+      "initials": [
+        "xl"
       ]
     },
     "training-data": {
@@ -847,6 +1255,30 @@
         "tlcs"
       ]
     },
+    "uncertainty": {
+      "pinyin": [
+        "bu que ding xing"
+      ],
+      "initials": [
+        "bqdx"
+      ]
+    },
+    "understanding": {
+      "pinyin": [
+        "li jie"
+      ],
+      "initials": [
+        "lj"
+      ]
+    },
+    "validation": {
+      "pinyin": [
+        "yan zheng"
+      ],
+      "initials": [
+        "yz"
+      ]
+    },
     "value-alignment": {
       "pinyin": [
         "jia zhi dui qi"
@@ -861,6 +1293,14 @@
       ],
       "initials": [
         "xlsjk"
+      ]
+    },
+    "voice-mode": {
+      "pinyin": [
+        "yu yin mo shi"
+      ],
+      "initials": [
+        "yyms"
       ]
     },
     "word2vec": {

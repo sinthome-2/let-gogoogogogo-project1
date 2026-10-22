@@ -2199,6 +2199,1169 @@
         "probability",
         "statistics"
       ]
+    },
+    {
+      "id": "generalization",
+      "name": "Generalization",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "泛化",
+        "泛化能力"
+      ],
+      "definition": "模型在从未见过的数据上保持良好表现的能力。泛化是机器学习的核心目标：训练只是在有限样本上优化，真正的考验是模型能否把学到的规律迁移到新场景。泛化能力差的表现是训练集上表现很好、新数据上明显下滑，即过拟合。",
+      "examples": [
+        "同一垃圾邮件分类器在去年的邮件上准确率 99%，今年的新邮件上只有 85%，说明泛化不足。",
+        "数据增强通过人工扩充训练样本的多样性来提升泛化能力。",
+        "正则化、早停和交叉验证都是常用的改善泛化的手段。"
+      ],
+      "related": [
+        "overfitting",
+        "regularization",
+        "robustness"
+      ],
+      "tldr": "模型把训练中学到的规律用到新数据上的能力。",
+      "misconceptions": [
+        "训练准确率越高泛化一定越好。",
+        "数据量翻倍泛化能力必然翻倍。"
+      ]
+    },
+    {
+      "id": "training",
+      "name": "Training",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "训练"
+      ],
+      "definition": "通过调整模型参数使其在训练数据上逐步逼近目标行为的过程。训练通常以迭代方式进行：前向传播算出预测、损失函数衡量误差、反向传播求梯度、优化器更新权重，如此循环直到收敛。",
+      "examples": [
+        "GPT 类模型的预训练在数千亿 token 的语料上进行数周，消耗大量算力。",
+        "微调是拿预训练好的模型在自己的小数据集上继续训练。",
+        "训练 loss 曲线持续下降通常是学习过程正常的信号。"
+      ],
+      "related": [
+        "loss-function",
+        "gradient-descent",
+        "backpropagation",
+        "fine-tuning"
+      ],
+      "tldr": "用数据反复迭代调整模型参数的过程。",
+      "misconceptions": [
+        "训练时间越长模型一定越好。",
+        "训练就是把数据存入模型。"
+      ]
+    },
+    {
+      "id": "uncertainty",
+      "name": "Uncertainty",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "不确定性"
+      ],
+      "definition": "模型（或概率模型）对预测结果缺乏确定把握的程度。机器学习里常区分两类：偶然不确定性来自数据本身的噪声，认识不确定性来自模型没见过足够多类似样本。区分两者有助于决定是收集更多数据还是改进模型。",
+      "examples": [
+        "医疗影像模型对罕见病种的预测方差大，体现认识不确定性高。",
+        "贝叶斯神经网络用权重分布来表达预测的不确定性。",
+        "大模型对自己回答「我没有把握」的校准能力，就是不确定性量化的一种应用。"
+      ],
+      "related": [
+        "bayesian",
+        "entropy"
+      ],
+      "tldr": "衡量模型「有多没把握」的量化指标。",
+      "misconceptions": [
+        "模型输出的概率就等于真实置信度。",
+        "不确定性只能来自数据噪声。"
+      ]
+    },
+    {
+      "id": "reasoning",
+      "name": "Reasoning",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "推理能力"
+      ],
+      "definition": "模型进行多步逻辑推导、解决需要中间步骤问题的能力，区别于直接从记忆中检索答案。链式思维（chain-of-thought）等技术通过在输出中显式展开中间步骤来提升推理表现，是当前大模型研究的重点方向。",
+      "examples": [
+        "解数学题时先列公式再代入计算，就是典型的显式推理过程。",
+        "大模型在「爱丽丝有三个兄弟……」这类关系推理题上仍可能犯错。",
+        "推理能力的评测常用数学竞赛题和逻辑谜题基准。"
+      ],
+      "related": [
+        "chain-of-thought",
+        "emergent-ability",
+        "benchmark"
+      ],
+      "tldr": "多步推导求解问题的能力，而非死记答案。",
+      "misconceptions": [
+        "模型能流畅说话就等于会推理。",
+        "推理能力完全来自训练数据中的现成答案。"
+      ]
+    },
+    {
+      "id": "nlp",
+      "name": "NLP",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "自然语言处理"
+      ],
+      "definition": "Natural Language Processing，研究如何让计算机理解、生成和处理人类语言的学科。传统 NLP 依赖人工规则和特征工程，2018 年后被基于 Transformer 的预训练语言模型全面接管，如今大语言模型是其主流形态。",
+      "examples": [
+        "机器翻译、情感分析、命名实体识别都是经典的 NLP 任务。",
+        "BERT 统治了 2018–2022 年的 NLP 基准排行榜。",
+        "ChatGPT 可以看作通用化的 NLP 系统：一个模型包办几乎所有语言任务。"
+      ],
+      "related": [
+        "transformer",
+        "machine-translation",
+        "sentiment-analysis",
+        "named-entity-recognition",
+        "llm"
+      ],
+      "tldr": "让计算机理解和生成人类语言的学科。",
+      "misconceptions": [
+        "NLP 只等于聊天机器人。",
+        "NLP 已经被大模型取代、不再是独立方向。"
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "Deployment",
+      "category": "technical",
+      "subcategory": "inference-deployment",
+      "aliases": [
+        "部署",
+        "上线"
+      ],
+      "definition": "把训练好的模型投入实际环境运行的过程，包括模型压缩、服务化、负载与成本控制、监控与回滚等环节。部署阶段的工程决策直接影响用户体验和单位成本，与训练阶段关注的目标完全不同。",
+      "examples": [
+        "把 70B 参数的模型通过量化和蒸馏压缩后部署到 4 张消费级显卡上。",
+        "线上流量突增时自动扩容推理实例，是典型的部署侧问题。",
+        "模型更新先灰度 5% 流量观察指标，再全量发布。"
+      ],
+      "related": [
+        "inference",
+        "quantization",
+        "edge-deployment",
+        "throughput",
+        "latency"
+      ],
+      "tldr": "让模型从实验室走进生产环境的工程环节。",
+      "misconceptions": [
+        "模型精度高就一定能顺利部署。",
+        "部署只是运维的事，与算法无关。"
+      ]
+    },
+    {
+      "id": "autonomy",
+      "name": "Autonomy",
+      "category": "academic",
+      "subcategory": "cognition-ethics",
+      "aliases": [
+        "自主性"
+      ],
+      "definition": "智能体在没有人类逐步指令的情况下自行规划并行动的程度。AI 语境里常讨论自主智能体：给它一个目标，它能自己拆解任务、调用工具、检查结果。自主性越高，出错时的责任归属和安全约束问题越突出。",
+      "examples": [
+        "自动客服机器人按固定脚本回答是低自主。",
+        "能自己查资料、写代码、跑测试并修 bug 的编程智能体是高自主。",
+        "军事自主武器是自主性伦理争议的焦点。"
+      ],
+      "related": [
+        "agent",
+        "value-alignment"
+      ],
+      "tldr": "不依赖逐步人工指令、自行完成任务的程度。"
+    },
+    {
+      "id": "bert",
+      "name": "BERT",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "伯特"
+      ],
+      "definition": "Google 2018 年提出的预训练语言模型，采用 Transformer 编码器双向读取文本，通过掩码语言模型和下一句预测两个任务预训练。BERT 曾长期霸榜 NLP 基准，并开创了「预训练 + 微调」的范式。",
+      "examples": [
+        "BERT 擅长文本分类、实体识别等理解类任务。",
+        "用 BERT 做搜索相关性排序是工业界常见用法。",
+        "RoBERTa、ALBERT 都是 BERT 的改进变体。"
+      ],
+      "related": [
+        "transformer",
+        "encoder-decoder",
+        "gpt",
+        "pre-training"
+      ],
+      "tldr": "双向读取文本的预训练理解模型。"
+    },
+    {
+      "id": "classification",
+      "name": "Classification",
+      "category": "usage",
+      "subcategory": "application-scenarios",
+      "aliases": [
+        "分类"
+      ],
+      "definition": "把输入划归到预设类别中的任务，是监督学习的经典形式。二分类判断是/否，多分类在多个标签中选一个，多标签分类允许一个输入同时属于多个类别。垃圾邮件识别、情感极性判断都是分类。",
+      "examples": [
+        "判断一封邮件是垃圾邮件还是正常邮件是二分类。",
+        "新闻按体育、财经、科技等频道归类是多分类。",
+        "一条影评可以同时打上「正面」和「推荐」两个标签，属于多标签分类。"
+      ],
+      "related": [
+        "sentiment-analysis",
+        "named-entity-recognition",
+        "nlp"
+      ],
+      "tldr": "把输入分进预设类别的任务。"
+    },
+    {
+      "id": "cognition",
+      "name": "Cognition",
+      "category": "academic",
+      "subcategory": "cognition-ethics",
+      "aliases": [
+        "认知"
+      ],
+      "definition": "感知、记忆、推理、决策等心智过程的总称。AI 研究常以人类认知为参照：认知科学发现人的思维规律，机器学习的部分目标就是让模型具备类似的信息处理能力，但两者在机制和效率上差异很大。",
+      "examples": [
+        "人类读一个句子会调动语义记忆和语境推理，模型则依赖统计模式。",
+        "认知负荷理论指导了对话界面一次展示信息量的设计。",
+        "比较人类与模型在同一推理题上的表现是认知 AI 研究的常见实验。"
+      ],
+      "related": [
+        "theory-of-mind",
+        "consciousness",
+        "reasoning"
+      ],
+      "tldr": "感知、记忆、推理、决策等心智过程的总称。"
+    },
+    {
+      "id": "consciousness",
+      "name": "Consciousness",
+      "category": "academic",
+      "subcategory": "philosophy-ontology",
+      "aliases": [
+        "意识"
+      ],
+      "definition": "主观体验的存在状态——「身为某种存在是什么感觉」。意识的本质和来源在哲学上尚无共识，AI 的兴起让「机器是否可能有意识」成为前沿争论，但目前没有任何科学共识或可靠检测方法能判定模型具有意识。",
+      "examples": [
+        "疼痛的感觉本身（而不只是疼痛的行为反应）是意识问题的核心。",
+        "有研究者认为足够复杂的系统可能涌现出意识，也有学者坚决反对。",
+        "判断 AI 意识缺乏像测体温那样的客观仪器。"
+      ],
+      "related": [
+        "machine-consciousness",
+        "cognition",
+        "chinese-room"
+      ],
+      "tldr": "主观体验本身，机器是否可能拥有尚无共识。"
+    },
+    {
+      "id": "content-moderation",
+      "name": "Content Moderation",
+      "category": "usage",
+      "subcategory": "output-evaluation",
+      "aliases": [
+        "内容审核"
+      ],
+      "definition": "平台对 user 生成内容进行筛查和处置的实践，覆盖色情、暴力、仇恨、虚假信息等类别。在 AI 产品中，内容审核通常由模型自动初筛加人工复核完成，平衡尺度、误伤和成本是长期难题。",
+      "examples": [
+        "社交平台用模型先过滤违规图片，再抽样人工复核。",
+        "AI 聊天机器人输出前的安全过滤层就是内容审核的一种。",
+        "不同文化对同一内容的尺度判定可能完全不同。"
+      ],
+      "related": [
+        "guardrails",
+        "toxicity",
+        "harmfulness"
+      ],
+      "tldr": "对生成或发布内容进行筛查处置的实践。"
+    },
+    {
+      "id": "diffusion-model",
+      "name": "Diffusion Model",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "扩散模型"
+      ],
+      "definition": "一类生成模型，训练时逐步给图片加噪声直到纯白噪，生成时学习反向去噪过程，从噪声一步步还原出图像。扩散模型是当前图像生成（如 Stable Diffusion）的主流架构，生成的多样性和质量都超过此前的 GAN。",
+      "examples": [
+        "Stable Diffusion、Midjourney、DALL·E 的图像生成核心都是扩散模型。",
+        "文本条件扩散模型根据文字描述定向生成画面。",
+        "扩散思路也被扩展到音频和三维内容生成。"
+      ],
+      "related": [
+        "image-generation",
+        "generative-ai"
+      ],
+      "tldr": "从噪声逐步去噪生成图像的模型。"
+    },
+    {
+      "id": "digital-divide",
+      "name": "Digital Divide",
+      "category": "academic",
+      "subcategory": "society-impact",
+      "aliases": [
+        "数字鸿沟"
+      ],
+      "definition": "不同地区、阶层或群体之间在获取和使用数字技术方面的差距。AI 时代数字鸿沟呈现新形态：能熟练运用 AI 工具的人群效率倍增，缺乏 access 和技能的人群进一步落后，差距从「有没有设备」扩展到「会不会用 AI」。",
+      "examples": [
+        "偏远地区学生既缺设备也缺会用 AI 辅导的老师。",
+        "同样岗位，会用编程助手和不会用的工程师产出差距拉大。",
+        "部分国家因算力和数据受限难以参与前沿 AI 研究。"
+      ],
+      "related": [
+        "job-displacement"
+      ],
+      "tldr": "技术 access 与使用能力上的群体差距。"
+    },
+    {
+      "id": "dropout",
+      "name": "Dropout",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "随机失活"
+      ],
+      "definition": "训练神经网络时以一定概率随机丢弃部分神经元的激活，迫使网络不依赖任何单一路径，从而减轻过拟合。Dropout 只在训练时开启，推理时全部神经元参与但权重按比例缩放。",
+      "examples": [
+        "训练时每次前向传播随机屏蔽 20% 的隐藏单元。",
+        "Dropout 可以看作对网络做指数级子网络的集成。",
+        "大模型训练中 Dropout 常被其他正则手段替代。"
+      ],
+      "related": [
+        "regularization",
+        "overfitting",
+        "neural-network"
+      ],
+      "tldr": "训练时随机丢弃神经元以防过拟合。"
+    },
+    {
+      "id": "ethics",
+      "name": "Ethics",
+      "category": "academic",
+      "subcategory": "cognition-ethics",
+      "aliases": [
+        "伦理"
+      ],
+      "definition": "关于行为对错与价值取舍的系统思考。AI 伦理关注算法歧视、隐私侵犯、责任归属、就业冲击等问题，AI 安全关注模型失控等生存性风险，两者有重叠但侧重不同：伦理偏价值权衡，安全偏风险控制。",
+      "examples": [
+        "面部识别在公共空间部署涉及隐私与安全的伦理权衡。",
+        "招聘算法对特定群体打低分是算法歧视的伦理问题。",
+        "自动驾驶事故中责任的划分是经典的 AI 伦理难题。"
+      ],
+      "related": [
+        "value-alignment",
+        "bias"
+      ],
+      "tldr": "对 AI 行为对错与价值取舍的系统思考。"
+    },
+    {
+      "id": "evaluation",
+      "name": "Evaluation",
+      "category": "usage",
+      "subcategory": "output-evaluation",
+      "aliases": [
+        "评估"
+      ],
+      "definition": "用定量或定性的方法衡量模型能力的过程。评估分训练时的验证（监控是否收敛）和发布前的基准测试（横向对比能力），也分自动指标（准确率、困惑度）和人类评审。评估结果的可靠性直接决定模型迭代的有效性。",
+      "examples": [
+        "考试式基准如 MMLU 用大题量选择题测知识广度。",
+        "人类评审员对两个模型的回答盲测打分叫 human eval。",
+        "评估集被训练数据污染会让分数虚高，是常见陷阱。"
+      ],
+      "related": [
+        "benchmark",
+        "human-evaluation"
+      ],
+      "tldr": "定量或定性衡量模型能力的过程。"
+    },
+    {
+      "id": "factuality",
+      "name": "Factuality",
+      "category": "usage",
+      "subcategory": "output-evaluation",
+      "aliases": [
+        "事实性"
+      ],
+      "definition": "模型输出与客观事实相符的程度，与流畅度相互独立——一段话可以读起来理直气壮却句句是编造的。提升事实性可通过检索增强（让模型先查资料再回答）和事后核验实现，幻觉问题本质就是事实性缺陷。",
+      "examples": [
+        "模型把不存在的论文标题和作者编得有鼻子有眼，事实性失败。",
+        "接入搜索引擎的问答系统事实性明显优于纯凭记忆回答。",
+        "专用事实核查模型负责给生成内容逐句打分。"
+      ],
+      "related": [
+        "hallucination",
+        "rag",
+        "human-evaluation"
+      ],
+      "tldr": "输出与客观事实相符的程度。"
+    },
+    {
+      "id": "fairness",
+      "name": "Fairness",
+      "category": "academic",
+      "subcategory": "cognition-ethics",
+      "aliases": [
+        "公平性"
+      ],
+      "definition": "模型对不同群体的对待不因其受保护特征（性别、族群、年龄等）产生不合理差异的性质。公平有多种互相冲突的形式化定义，实践中要先把「什么叫公平」讲清楚，才能测量和纠正偏差。",
+      "examples": [
+        "同等条件的贷款申请，某群体通过率系统性偏低，是不公平信号。",
+        "不同公平定义之间可能数学上不可兼得。",
+        "纠正公平性问题常需要在准确率和公平性之间做显式权衡。"
+      ],
+      "related": [
+        "bias",
+        "ethics"
+      ],
+      "tldr": "模型不因群体特征产生不合理区别对待。"
+    },
+    {
+      "id": "feedback-loop",
+      "name": "Feedback Loop",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "反馈回路"
+      ],
+      "definition": "系统的输出反过来影响其输入的循环结构。正反馈自我强化（越推越火），负反馈趋于稳定（恒温器）。AI 系统的数据若来自自身输出且不断回流训练，可能形成自我强化的反馈回路，放大初始偏差。",
+      "examples": [
+        "推荐系统只推用户看过的同类内容，口味越来越窄。",
+        "模型生成的大量网页文本被抓回去训练下一代模型。",
+        "强化学习智能体与环境交互就是持续闭环反馈。"
+      ],
+      "related": [
+        "cybernetics",
+        "reinforcement-learning",
+        "data-poisoning"
+      ],
+      "tldr": "输出回流影响输入的循环结构。"
+    },
+    {
+      "id": "generative-ai",
+      "name": "Generative AI",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "生成式 AI"
+      ],
+      "definition": "能够生成新内容（文本、图像、音频、视频、代码）的 AI 系统统称，底层通常是 Transformer、扩散模型等生成式模型。2022 年后以聊天机器人和文生图为代表迅速普及，正在改变内容生产的方式和成本结构。",
+      "examples": [
+        "用大语言模型写初稿、用扩散模型配插图是常见工作流。",
+        "生成式 AI 可合成训练数据，缓解真实数据不足。",
+        "深度伪造（deepfake）是生成式技术的滥用面。"
+      ],
+      "related": [
+        "llm",
+        "diffusion-model",
+        "image-generation",
+        "deepfake"
+      ],
+      "tldr": "能生成新内容（文/图/音/视频/代码）的 AI 统称。"
+    },
+    {
+      "id": "gpt",
+      "name": "GPT",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "生成式预训练变换器"
+      ],
+      "definition": "Generative Pre-trained Transformer，OpenAI 提出的只解码器 Transformer 语言模型系列，通过预测下一个 token 预训练。GPT 系列从 2018 年迭代至今，ChatGPT 的出现使其成为大语言模型的代名词。",
+      "examples": [
+        "GPT-3 展现了上下文学习（in-context learning）能力。",
+        "ChatGPT 基于 GPT 系列模型加对话微调和对齐。",
+        "许多开源模型（如 LLaMA 系）都是 GPT 式架构。"
+      ],
+      "related": [
+        "transformer",
+        "bert",
+        "llm",
+        "pre-training"
+      ],
+      "tldr": "OpenAI 的解码器式预训练语言模型系列。"
+    },
+    {
+      "id": "gpu",
+      "name": "GPU",
+      "category": "technical",
+      "subcategory": "inference-deployment",
+      "aliases": [
+        "图形处理器"
+      ],
+      "definition": "最初为图形渲染设计的芯片，因其大规模并行计算能力成为深度学习训练的主力硬件。相比 CPU 少量核心，GPU 有数千个计算单元，适合同时处理矩阵乘法等张量运算，也是当前 AI 算力竞赛的核心资源。",
+      "examples": [
+        "训练一个大模型往往需要数千张 GPU 同时工作数周。",
+        "推理服务用 GPU 把单条请求的延迟压到百毫秒级。",
+        "专用 AI 芯片（TPU、NPU）在能效上挑战通用 GPU。"
+      ],
+      "related": [
+        "throughput",
+        "training",
+        "inference",
+        "quantization"
+      ],
+      "tldr": "靠海量并行单元支撑深度学习算力的芯片。"
+    },
+    {
+      "id": "information-extraction",
+      "name": "Information Extraction",
+      "category": "usage",
+      "subcategory": "application-scenarios",
+      "aliases": [
+        "信息抽取"
+      ],
+      "definition": "从非结构化文本中自动提取结构化信息的技术，如从合同里抽出甲方、金额、日期，从新闻里抽出人物、事件、地点。命名实体识别和关系抽取是其核心子任务，是把文档变成可用数据库的关键步骤。",
+      "examples": [
+        "把十年采购合同抽成一张结构化表格供审计。",
+        "从病历中提取症状、用药和诊断供科研统计。",
+        "知识图谱的构建大量依赖信息抽取。"
+      ],
+      "related": [
+        "named-entity-recognition",
+        "nlp"
+      ],
+      "tldr": "把非结构化文本转成结构化数据。"
+    },
+    {
+      "id": "information-theory",
+      "name": "Information Theory",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "信息论"
+      ],
+      "definition": "研究信息的度量、存储与传输的数学理论，由香农 1948 年奠基。信息论中的熵、互信息等概念是机器学习的基础语言：交叉熵损失、决策树划分准则都直接来自信息论。",
+      "examples": [
+        "交叉熵损失函数衡量模型分布与真实分布的差异。",
+        "数据压缩的极限由信源熵决定。",
+        "互信息常被用来衡量特征与目标的相关性。"
+      ],
+      "related": [
+        "entropy"
+      ],
+      "tldr": "度量与传输信息的数学理论，ML 的基础语言。"
+    },
+    {
+      "id": "instruction-following",
+      "name": "Instruction Following",
+      "category": "usage",
+      "subcategory": "interaction-modes",
+      "aliases": [
+        "指令遵循"
+      ],
+      "definition": "模型准确理解并执行用户指令的能力，是大模型产品体验的核心。指令遵循能力主要来自指令微调和对齐训练，评测时关注格式、约束、多步要求是否被忠实执行，而不仅是回答内容是否合理。",
+      "examples": [
+        "要求「只输出 JSON、不超过 50 字」，模型是否照办就是指令遵循。",
+        "系统提示词设定的角色和边界属于广义的指令。",
+        "指令遵循差的模型会答非所问或自行忽略约束。"
+      ],
+      "related": [
+        "system-prompt",
+        "instruction-tuning",
+        "prompt-engineering"
+      ],
+      "tldr": "忠实执行用户指令约束的能力。"
+    },
+    {
+      "id": "intelligence",
+      "name": "Intelligence",
+      "category": "academic",
+      "subcategory": "philosophy-ontology",
+      "aliases": [
+        "智能"
+      ],
+      "definition": "适应环境、学习经验、解决问题的能力，其严格定义在科学和哲学上都没有共识。AI 研究通常操作化为「在特定任务上达到或超过人类水平」，但通用智能是否可还原为任务集合，仍是图灵测试等争论的焦点。",
+      "examples": [
+        "国际象棋程序远超人类，但只在做咖啡这件事上完全无能。",
+        "动物智能研究显示乌鸦能制造工具，却没有语言。",
+        "测量智能的困难在于先要知道智能是什么。"
+      ],
+      "related": [
+        "turing-test",
+        "agi",
+        "reasoning"
+      ],
+      "tldr": "适应、学习、解决问题的统称，定义无共识。"
+    },
+    {
+      "id": "algorithm",
+      "name": "Algorithm",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "算法"
+      ],
+      "definition": "解决一类问题的有限、明确、可执行的步骤序列。AI 领域既有搜索、排序这类经典算法，也有构成现代模型的学习算法（如反向传播配合梯度下降）。算法描述「怎么做」，数据则提供「学什么」的素材。",
+      "examples": [
+        "二分查找在有序数组中每次排除一半元素。",
+        "梯度下降沿损失函数的反方向一步步逼近最低点。",
+        "A* 搜索在地图寻路中兼顾已走代价和剩余估计。"
+      ],
+      "related": [
+        "heuristic",
+        "optimization",
+        "search"
+      ],
+      "tldr": "解决问题的有限步骤序列。"
+    },
+    {
+      "id": "knowledge-graph",
+      "name": "Knowledge Graph",
+      "category": "technical",
+      "subcategory": "data-representation",
+      "aliases": [
+        "知识图谱"
+      ],
+      "definition": "以图结构组织知识的数据库：节点是实体，边是实体间关系（如「莫言—获得—诺贝尔文学奖」）。知识图谱支持精确的多跳推理查询，常与向量检索配合用于检索增强生成，弥补纯向量检索不擅精确关系的短板。",
+      "examples": [
+        "搜索引擎右侧的人物信息面板背后是知识图谱。",
+        "问「某演员的配偶获得过什么奖」需要沿图的多跳遍历。",
+        "RAG 系统里图谱负责精确事实，向量库负责语义相似。"
+      ],
+      "related": [
+        "rag",
+        "symbolic-ai",
+        "information-extraction"
+      ],
+      "tldr": "实体为节点、关系为边的结构化知识库。"
+    },
+    {
+      "id": "media-literacy",
+      "name": "Media Literacy",
+      "category": "academic",
+      "subcategory": "society-impact",
+      "aliases": [
+        "媒介素养"
+      ],
+      "definition": "批判性地获取、分析和评价媒体内容的能力。生成式 AI 让伪造文本、图片、音视频的成本趋近于零，媒介素养从「识别广告软文」升级为「默认存疑、交叉验证」，成为信息社会公民的基本防御技能。",
+      "examples": [
+        "看到「有图有真相」先查图片来源和元数据。",
+        "对 AI 生成的热点新闻先找两家独立媒体报道核实。",
+        "学校课程开始教学生识别深度伪造视频的痕迹。"
+      ],
+      "related": [
+        "misinformation",
+        "deepfake",
+        "digital-divide"
+      ],
+      "tldr": "批判性甄别媒体内容的能力，AI 时代更重要。"
+    },
+    {
+      "id": "metrics",
+      "name": "Metrics",
+      "category": "usage",
+      "subcategory": "output-evaluation",
+      "aliases": [
+        "指标"
+      ],
+      "definition": "把「好不好」变成可计算数字的度量标准。AI 评估中，准确率、召回率、F1、困惑度、BLEU 等指标各有适用边界：单一指标易被钻空子（古德哈特定律），严肃评估通常组合多个指标并结合人类评审。",
+      "examples": [
+        "分类任务看精确率和召回率的平衡，极端不平衡时准确率会撒谎。",
+        "机器翻译自动指标 BLEU 与人工评价常有出入。",
+        "模型刷榜优化的往往是单一指标，综合表现反而可能下降。"
+      ],
+      "related": [
+        "evaluation",
+        "benchmark",
+        "perplexity"
+      ],
+      "tldr": "把能力好坏量化成数字的度量标准。"
+    },
+    {
+      "id": "moderation",
+      "name": "Moderation",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": [
+        "审核"
+      ],
+      "definition": "对模型输入输出进行安全筛查的技术层，识别并拦截违规、有害或越权内容。现代做法是用专门训练的审核模型打分，配合规则与人工复核；审核过严会误伤正常用途，过松则留下滥用面，阈值取舍是核心难点。",
+      "examples": [
+        "输入侧审核可在 prompt 到达主模型前拦截越狱尝试。",
+        "输出侧审核给每条回复打有害分，超限则拒绝或改写。",
+        "不同地区的合规要求不同，审核策略需要分区配置。"
+      ],
+      "related": [
+        "content-moderation",
+        "guardrails",
+        "jailbreak"
+      ],
+      "tldr": "对模型输入输出做安全筛查的技术层。"
+    },
+    {
+      "id": "neuron",
+      "name": "Neuron",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "神经元"
+      ],
+      "definition": "神经网络中的基本计算单元：接收若干输入，加权求和，经激活函数非线性变换后输出。生物神经元是松散启发来源，人工神经元极其简化——它本质就是一个带非线性的加权求和器，复杂能力来自大规模连接而非单元本身。",
+      "examples": [
+        "单层神经元只能解决线性可分问题，如简单的与/或逻辑。",
+        "ReLU、sigmoid 是常用的激活函数。",
+        "一个 GPT 模型有约数千亿个这样的「神经元」。"
+      ],
+      "related": [
+        "neural-network",
+        "backpropagation",
+        "parameter"
+      ],
+      "tldr": "加权求和加非线性激活的基本计算单元。"
+    },
+    {
+      "id": "optimization",
+      "name": "Optimization",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "优化"
+      ],
+      "definition": "在给定约束下寻找最优解的过程。深度学习中，优化指用梯度信息调整参数使损失函数最小化，常用 Adam、SGD 等优化器；它与「拟合」不同——优化关注训练集上下降，泛化关注新数据上的表现，两者可能背离。",
+      "examples": [
+        "学习率太大优化震荡，太小收敛缓慢。",
+        "Adam 通过一阶二阶动量自适应调整步长。",
+        "继续训练训练 loss 还在降但验证 loss 上升，就是优化与泛化背离。"
+      ],
+      "related": [
+        "gradient-descent",
+        "optimizer",
+        "training",
+        "loss-function"
+      ],
+      "tldr": "调整参数让损失尽可能小的过程。"
+    },
+    {
+      "id": "philosophy-of-mind",
+      "name": "Philosophy of Mind",
+      "category": "academic",
+      "subcategory": "philosophy-ontology",
+      "aliases": [
+        "心灵哲学"
+      ],
+      "definition": "研究心智本质的哲学分支，追问意识、意向性、感受质等问题。AI 给这一领域带来新变量：如果机器表现出理解的一切外在特征，内在体验是否也随之存在？中文屋论证、图灵测试等思想实验都是这一传统的产物。",
+      "examples": [
+        "「理解」是某种计算过程还是另需主观体验，争论不休。",
+        "功能主义者认为心智由功能组织决定，与载体无关。",
+        "中文屋论证试图证明符号操作不等于真正理解。"
+      ],
+      "related": [
+        "consciousness",
+        "chinese-room",
+        "theory-of-mind"
+      ],
+      "tldr": "追问心智与意识本质的哲学分支。"
+    },
+    {
+      "id": "preference-data",
+      "name": "Preference Data",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "偏好数据"
+      ],
+      "definition": "记录「两个回答哪个更好」的比较型数据，是 RLHF 和对齐训练（如 DPO）的原料。与示范数据不同，偏好数据标注快、更贴近真实偏好，但质量依赖标注者群体的代表性，标注偏差会直接传进模型。",
+      "examples": [
+        "标注者对同一问题的两个回答投票选出更 helpful 的一个。",
+        "不同文化背景的标注者对「幽默还是严谨」的偏好不同。",
+        "偏好数据里的系统性偏见会让模型学会讨好特定口味。"
+      ],
+      "related": [
+        "reward-model",
+        "rlhf",
+        "human-evaluation"
+      ],
+      "tldr": "「哪个回答更好」的比较型标注数据。"
+    },
+    {
+      "id": "probability",
+      "name": "Probability",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "概率"
+      ],
+      "definition": "度量随机事件发生可能性的数学工具，0 到 1 之间取值。概率论是机器学习的数学地基：模型的输出常被解释为概率分布，训练目标常是最大化数据的对数似然（等价于最小化交叉熵）。",
+      "examples": [
+        "模型输出 70% 概率是猫、30% 是狗。",
+        "贝叶斯方法把概率当作信念程度，可随证据更新。",
+        "大数定律保证大量独立试验下频率收敛于概率。"
+      ],
+      "related": [
+        "uncertainty",
+        "bayesian",
+        "statistics",
+        "entropy"
+      ],
+      "tldr": "度量事件发生可能性的数学工具。"
+    },
+    {
+      "id": "sampling",
+      "name": "Sampling",
+      "category": "technical",
+      "subcategory": "inference-deployment",
+      "aliases": [
+        "采样"
+      ],
+      "definition": "从模型定义的概率分布中选取下一个 token 的过程。常见策略有贪心（每步取最大概率）、温度缩放、top-k 和 nucleus（top-p）采样：采样越保守输出越稳定，越激进越发散多样。解码策略直接影响回答的风格和质量。",
+      "examples": [
+        "温度设为 0 等价于贪心，同一个问题几乎每次回答一样。",
+        "创意写作用较高温度换取表达多样性。",
+        "top-p 按累积概率动态截断候选集，比固定 top-k 更平滑。"
+      ],
+      "related": [
+        "temperature",
+        "top-p",
+        "inference"
+      ],
+      "tldr": "从模型概率分布中选取输出的解码过程。"
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "搜索"
+      ],
+      "definition": "在巨大候选空间中按目标寻找解的过程，是经典 AI 的核心主题。从国际象棋的博弈树搜索到定理证明的启发式搜索，再到如今「搜索增强推理」在推理模型中的应用，搜索思想贯穿 AI 发展史：推理给方向，搜索给深度。",
+      "examples": [
+        "AlphaGo 用蒙特卡洛树搜索在棋局中推演未来。",
+        "旅行商问题需要启发式搜索逼近最优路线。",
+        "推理模型把解答过程组织成可搜索的树，再用奖励信号筛选。"
+      ],
+      "related": [
+        "heuristic",
+        "algorithm",
+        "reasoning"
+      ],
+      "tldr": "在候选空间中按目标寻找解的过程。"
+    },
+    {
+      "id": "security",
+      "name": "Security",
+      "category": "technical",
+      "subcategory": "safety-alignment",
+      "aliases": [
+        "安全"
+      ],
+      "definition": "保护 AI 系统本身及其周边不被攻击、误用或泄露数据的实践总称。威胁面包括提示注入、对抗样本、训练数据投毒、模型窃取和供应链风险；传统软件安全叠加模型特有的攻击面，是部署 AI 产品时必须同步建设的工程能力。",
+      "examples": [
+        "把不可信网页内容拼进 prompt 前先做隔离和过滤。",
+        "对抗贴纸能让路牌识别模型把 stop 看成限速。",
+        "开源模型的权重泄露等于把全部训练成果交给对手。"
+      ],
+      "related": [
+        "prompt-injection",
+        "adversarial-attack",
+        "data-poisoning",
+        "privacy"
+      ],
+      "tldr": "保护 AI 系统与数据免受攻击误用的实践。"
+    },
+    {
+      "id": "similarity-search",
+      "name": "Similarity Search",
+      "category": "technical",
+      "subcategory": "data-representation",
+      "aliases": [
+        "相似度检索"
+      ],
+      "definition": "在高维向量空间中找与查询向量最接近的数据点，是向量数据库的核心操作。通过近似最近邻算法（如 HNSW）在亿级向量上实现毫秒级检索，支撑着语义搜索、推荐和检索增强生成的取数环节。",
+      "examples": [
+        "以文搜图：把图片描述转成向量后在图库中找最近邻。",
+        "RAG 系统用相似度检索找到与问题最相关的文档片段。",
+        "欧氏距离和余弦相似度是常用的距离度量。"
+      ],
+      "related": [
+        "vector-database",
+        "embedding",
+        "rag"
+      ],
+      "tldr": "在向量空间找最近邻的检索操作。"
+    },
+    {
+      "id": "society-impact",
+      "name": "Society Impact",
+      "category": "academic",
+      "subcategory": "society-impact",
+      "aliases": [
+        "社会影响"
+      ],
+      "definition": "AI 大规模应用对社会结构、就业形态、教育公平、信息生态等方面的总体影响。研究这一主题需要跨学科视角：既包括岗位替代与创造的净效应测算，也包括算法治理、数字鸿沟、深度伪造对公共讨论的侵蚀等长期问题。",
+      "examples": [
+        "客服、翻译等岗位的自动化程度已显著改变招聘结构。",
+        "学生用 AI 写作业倒逼教育评价方式改革。",
+        "合成内容泛滥使「眼见为实」失效，冲击信息信任基础。"
+      ],
+      "related": [
+        "job-displacement",
+        "misinformation",
+        "digital-divide"
+      ],
+      "tldr": "AI 对就业、教育、信息生态等的社会级影响。"
+    },
+    {
+      "id": "statistics",
+      "name": "Statistics",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "统计学"
+      ],
+      "definition": "从数据中提取规律并量化不确定性的学科，为机器学习提供推断工具和概念框架。机器学习和统计学高度重叠：前者更侧重预测性能，后者更侧重假设检验和因果解释，贝叶斯方法则是两者共享的语言。",
+      "examples": [
+        "评估 A/B 测试结果是否显著超出随机波动。",
+        "过拟合在统计视角下是「把噪声当规律」。",
+        "置信区间给出估计的不确定性范围。"
+      ],
+      "related": [
+        "probability",
+        "information-theory",
+        "bayesian"
+      ],
+      "tldr": "从数据中提炼规律并量化不确定性的学科。"
+    },
+    {
+      "id": "system",
+      "name": "System",
+      "category": "academic",
+      "subcategory": "interdisciplinary",
+      "aliases": [
+        "系统"
+      ],
+      "definition": "由相互作用的部件组成、整体表现出部件所不具备性质的组织形式。系统思维强调看整体而非零件：反馈回路、涌现、稳态等概念是理解复杂 AI 系统的基本工具，控制论正是研究系统的经典学科。",
+      "examples": [
+        "单个神经元很简单，大规模连接却能涌现出语言能力。",
+        "推荐系统由模型、策略、界面、用户共同构成，优化局部未必优化整体。",
+        "系统的稳态依赖负反馈，失控常源于正反馈无约束。"
+      ],
+      "related": [
+        "cybernetics",
+        "feedback-loop",
+        "emergent-ability"
+      ],
+      "tldr": "整体大于部件之和的组织形式。"
+    },
+    {
+      "id": "tool-use",
+      "name": "Tool Use",
+      "category": "usage",
+      "subcategory": "tools-platforms",
+      "aliases": [
+        "工具调用",
+        "工具使用"
+      ],
+      "definition": "模型按任务需要调用外部工具（搜索、计算器、代码执行、数据库等）完成自身做不到的事。工具使用是智能体能力的关键跃迁：模型负责规划和编排，工具负责精确执行，二者结合才能处理超出参数记忆的任务。",
+      "examples": [
+        "让模型查实时股价，而不是凭记忆回答。",
+        "代码助手调用终端运行测试并根据报错修代码。",
+        "函数调用（function calling）是工具使用的标准化接口。"
+      ],
+      "related": [
+        "agent",
+        "api",
+        "copilot"
+      ],
+      "tldr": "模型调用外部工具补足自身能力。"
+    },
+    {
+      "id": "top-p",
+      "name": "Top-p",
+      "category": "technical",
+      "subcategory": "inference-deployment",
+      "aliases": [
+        "核采样",
+        "nucleus sampling"
+      ],
+      "definition": "一种采样策略：只从累积概率达到 p 的最小候选集合中采样，动态截断长尾。与 top-k 固定保留 k 个候选不同，top-p 随分布形态自适应——分布集中时候选少、输出稳，分布发散时候选多、输出活。常和温度参数配合使用。",
+      "examples": [
+        "p=0.1 时只从头部 10% 概率质量的 token 里选。",
+        "回答事实性问题用低 top-p，写头脑风暴用高 top-p。",
+        "top-p 设为 1 表示不截断，完全按缩放后的分布采样。"
+      ],
+      "related": [
+        "temperature",
+        "sampling"
+      ],
+      "tldr": "按累积概率动态截断候选的采样策略。"
+    },
+    {
+      "id": "understanding",
+      "name": "Understanding",
+      "category": "academic",
+      "subcategory": "philosophy-ontology",
+      "aliases": [
+        "理解"
+      ],
+      "definition": "把握事物意义的心理能力，也是 AI 哲学争议的核心词。功能主义认为能正确使用概念即是理解；塞尔的中文屋论证则主张纯粹的符号操作不等于理解。日常谈论「模型理解了没有」时，先明确是在行为层面还是体验层面使用这个词。",
+      "examples": [
+        "模型能正确回答关于鲸鱼的所有问题，是否算理解「鲸鱼」？",
+        "中文屋中的人按规则操作中文符号，答案全对但不懂中文。",
+        "行为层面的「理解」可用任务表现操作化，体验层面的不行。"
+      ],
+      "related": [
+        "chinese-room",
+        "turing-test",
+        "philosophy-of-mind"
+      ],
+      "tldr": "把握意义的能力，机器是否拥有无定论。"
+    },
+    {
+      "id": "validation",
+      "name": "Validation",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "验证"
+      ],
+      "definition": "用未参与训练的数据评估模型，以监控训练进度和挑选最佳检查点的过程。常用做法是把数据切成训练/验证/测试三份，验证集指导调参，测试集只做最终评估；混合使用验证集和测试集会导致评估失真。",
+      "examples": [
+        "每个 epoch 在验证集上算 loss，取最低点的模型权重。",
+        "早停策略在验证指标不再改善时终止训练。",
+        "k 折交叉验证让小数据集也能可靠估计泛化误差。"
+      ],
+      "related": [
+        "overfitting",
+        "generalization",
+        "training"
+      ],
+      "tldr": "用未训练数据监控进度、选最优模型。"
+    },
+    {
+      "id": "voice-mode",
+      "name": "Voice Mode",
+      "category": "usage",
+      "subcategory": "interaction-modes",
+      "aliases": [
+        "语音模式"
+      ],
+      "definition": "用户通过语音与 AI 交互的模式，通常由语音识别（听）、语言模型（想）、语音合成（说）三段级联而成。相比文字交互，语音模式延迟要求苛刻（数百毫秒内响应）、容错更低，是检验全链路工程能力的试金石。",
+      "examples": [
+        "和语音助手打电话式对话，要求几乎无感延迟。",
+        "嘈杂环境下识别错误会沿链路放大成回答错误。",
+        "端到端语音模型把三段级联合并成一个模型以降低延迟。"
+      ],
+      "related": [
+        "speech-recognition",
+        "chatbot",
+        "streaming"
+      ],
+      "tldr": "语音识别—语言模型—语音合成的全语音交互。"
+    },
+    {
+      "id": "tokenization",
+      "name": "Tokenization",
+      "category": "technical",
+      "subcategory": "model-architecture",
+      "aliases": [
+        "分词"
+      ],
+      "definition": "把文本切分成模型能处理的最小单位（token）的过程。token 可能是字、词片段或符号，由训练好的分词器决定；上下文窗口长度、计费单位都以 token 计，因此同一句话不同语言消耗的 token 数可能差好几倍。",
+      "examples": [
+        "「unbelievable」可能被切成 un-believ-able 三个 token。",
+        "中文常用单字或双字词作 token，句均 token 多于英文。",
+        "分词器没见过的字符会被拆成字节级片段，数量骤增。"
+      ],
+      "related": [
+        "token",
+        "transformer",
+        "context-window"
+      ],
+      "tldr": "把文本切成模型最小处理单位的过程。"
+    },
+    {
+      "id": "top-k",
+      "name": "Top-k",
+      "category": "technical",
+      "subcategory": "inference-deployment",
+      "aliases": [
+        "Top-k 采样"
+      ],
+      "definition": "一种采样策略：每步只在概率最高的 k 个候选 token 中按权重采样，其余直接截断。k 越小输出越稳定，k 越大越发散；它实现简单但截断线固定，不随分布形态自适应，因此常与 top-p 或温度配合使用。",
+      "examples": [
+        "k=1 时退化为贪心解码，输出完全确定。",
+        "创意生成常设 k=50 再叠加温度 0.8。",
+        "分布很集中时 top-k 可能放进低质候选，分布发散时又截掉好候选。"
+      ],
+      "related": [
+        "top-p",
+        "sampling",
+        "temperature"
+      ],
+      "tldr": "只在概率最高的 k 个候选中采样。"
+    },
+    {
+      "id": "epoch",
+      "name": "Epoch",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "轮次",
+        "代"
+      ],
+      "definition": "训练集被完整遍历一遍称为一个 epoch。训练通常需要数十到数百个 epoch（小数据）或不到一个 epoch（超大语料）；epoch 数与过拟合风险相关，配合验证集监控才能确定合适的停止时机。",
+      "examples": [
+        "1000 条样本、batch 大小 32，一个 epoch 含约 32 次参数更新。",
+        "验证集 loss 在第 8 个 epoch 后回升，说明该早停。",
+        "大模型预训练常只扫一遍数据（约 1 个 epoch）就换下一批语料。"
+      ],
+      "related": [
+        "training",
+        "batch-size",
+        "overfitting"
+      ],
+      "tldr": "训练集完整过一遍叫一个 epoch。"
+    },
+    {
+      "id": "batch-size",
+      "name": "Batch Size",
+      "category": "technical",
+      "subcategory": "training-optimization",
+      "aliases": [
+        "批大小"
+      ],
+      "definition": "每次参数更新所用训练样本的数量。batch 大，梯度估计稳、硬件利用率高、但更新次数少、泛化可能变差；batch 小则相反。它是训练超参数中对显存占用和收敛速度影响最直接的一个，常以 2 的幂取值。",
+      "examples": [
+        "显存不够时减小 batch 或改用梯度累积等效放大。",
+        "小 batch 训练loss 抖动大但常能找到更平的极小值。",
+        "学习率通常要随 batch 大小按比例调整。"
+      ],
+      "related": [
+        "training",
+        "gradient-descent",
+        "optimization"
+      ],
+      "tldr": "每次更新参数所用样本数。"
+    },
+    {
+      "id": "ai-governance",
+      "name": "AI Governance",
+      "category": "academic",
+      "subcategory": "society-impact",
+      "aliases": [
+        "AI 治理"
+      ],
+      "definition": "对 AI 系统的开发、部署和使用进行制度性管理的框架与实践，涵盖法规（如各法域的 AI 法案）、标准、审计、问责机制和行业自律。与技术对齐关注「模型听不听话」不同，治理关注「组织和社会如何负责任地使用模型」。",
+      "examples": [
+        "高风险 AI 应用上线前需做合规评估并留审计记录。",
+        "欧盟 AI 法按风险等级对应用分类监管。",
+        "企业内部设立模型评审委员会，对高风险用例一票否决。"
+      ],
+      "related": [
+        "safety",
+        "ethics",
+        "value-alignment"
+      ],
+      "tldr": "对 AI 开发使用进行制度性管理的框架。"
     }
   ]
 }

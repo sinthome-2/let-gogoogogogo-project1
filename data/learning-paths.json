@@ -1,0 +1,22 @@
+{
+  "paths": [
+    {
+      "id": "beginner",
+      "name": "零基础入门",
+      "description": "从零开始使用 AI 产品的最短路径：先建立对大模型的整体认知，再学会提问，最后理解它为什么会出错。",
+      "steps": ["llm", "prompt", "token", "hallucination", "rag", "chatbot"]
+    },
+    {
+      "id": "engineering",
+      "name": "工程实践",
+      "description": "面向开发者：从模型结构到检索增强再到部署优化，串起把大模型用进生产环境的核心概念。",
+      "steps": ["transformer", "attention", "fine-tuning", "embedding", "vector-database", "inference", "latency", "quantization"]
+    },
+    {
+      "id": "academic",
+      "name": "学术纵深",
+      "description": "面向思考者：机器能思考吗？沿着图灵测试到意识争论的脉络，理解 AI 带来的哲学问题。",
+      "steps": ["turing-test", "chinese-room", "theory-of-mind", "consciousness", "value-alignment", "singularity"]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Similarity Search（相似度检索）是什么？— AI 术语辞典</title>
+  <meta name="description" content="在向量空间找最近邻的检索操作。">
+  <meta property="og:title" content="Similarity Search（相似度检索）是什么？— AI 术语辞典">
+  <meta property="og:description" content="在向量空间找最近邻的检索操作。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/let-gogoogogogo-project1/term/similarity-search/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/let-gogoogogogo-project1/assets/favicon.svg">
+  <link rel="canonical" href="/let-gogoogogogo-project1/term/similarity-search/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  "name": "Similarity Search",
+  "description": "在向量空间找最近邻的检索操作。",
+  "inLanguage": "zh-CN",
+  "url": "/let-gogoogogogo-project1/term/similarity-search/",
+  "isPartOf": {
+    "@type": "DefinedTermSet",
+    "name": "AI 术语辞典",
+    "url": "/let-gogoogogogo-project1/"
+  }
+}
+  </script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif; line-height: 1.6; max-width: 720px; margin: 0 auto; padding: 24px; color: #1f2937; }
+    .breadcrumb { font-size: 0.9rem; color: #6b7280; margin-bottom: 16px; }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    h1 { margin: 0 0 8px; font-size: 1.8rem; }
+    .chinese-name { color: #6b7280; margin-bottom: 20px; }
+    h2 { font-size: 1.1rem; margin: 28px 0 10px; border-bottom: 1px solid #e5e7eb; padding-bottom: 6px; }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    .related-list a { color: #2563eb; text-decoration: none; }
+    .related-list a:hover { text-decoration: underline; }
+    .related-list small { color: #6b7280; margin-left: 4px; }
+    .interactive-link { display: inline-block; margin-top: 28px; padding: 8px 16px; background: #2563eb; color: #fff; border-radius: 6px; text-decoration: none; }
+    .interactive-link:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <nav class="breadcrumb">
+    <a href="/let-gogoogogogo-project1/">技术</a> › 数据与表示 › Similarity Search
+  </nav>
+
+  <h1>Similarity Search</h1>
+  <div class="chinese-name">相似度检索</div>
+
+  <h2>定义</h2>
+  <p>在高维向量空间中找与查询向量最接近的数据点，是向量数据库的核心操作。通过近似最近邻算法（如 HNSW）在亿级向量上实现毫秒级检索，支撑着语义搜索、推荐和检索增强生成的取数环节。</p>
+
+  <h2>示例</h2>
+<ul>
+  <li>以文搜图：把图片描述转成向量后在图库中找最近邻。</li>
+  <li>RAG 系统用相似度检索找到与问题最相关的文档片段。</li>
+  <li>欧氏距离和余弦相似度是常用的距离度量。</li>
+</ul>
+
+  <h2>相关词条</h2>
+<ul class="related-list">
+  <li><a href="/let-gogoogogogo-project1/term/vector-database/">vector-database</a></li>
+  <li><a href="/let-gogoogogogo-project1/term/embedding/">embedding</a></li>
+  <li><a href="/let-gogoogogogo-project1/term/rag/">rag</a></li>
+</ul>
+
+  <a class="interactive-link" href="/let-gogoogogogo-project1/#term/similarity-search">打开交互版</a>
+
+  <details id="citation">
+    <summary>引用本文</summary>
+    <pre>AI 术语辞典. Similarity Search[EB/OL]. [{{CITE_DATE}}]. /let-gogoogogogo-project1/term/similarity-search/.</pre>
+    <button type="button" data-copy>复制 GB/T 7714</button>
+    <pre>AI 术语辞典. ({{CITE_DATE}}). Similarity Search. AI 术语辞典. /let-gogoogogogo-project1/term/similarity-search/</pre>
+    <button type="button" data-copy>复制 APA</button>
+  </details>
+
+  <script>
+    document.querySelectorAll('button[data-copy]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pre = btn.previousElementSibling;
+        const text = pre.textContent.replace(/{{CITE_DATE}}/g, new Date().toLocaleDateString('sv'));
+        navigator.clipboard.writeText(text).catch(err => console.warn('复制失败', err));
+      });
+    });
+  </script>
+</body>
+</html>
