@@ -108,6 +108,18 @@ if (!existsSync(RUNS)) {
     for (const b of batches) {
       const dir = join(batchesDir, b);
       const tasks = readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort();
+      if (!tasks.length) {
+        const own = join(dir, 'state.json');
+        if (existsSync(own)) {
+          try {
+            const j = JSON.parse(readFileSync(own, 'utf8'));
+            console.log(`batch ${b}: ${j.task || b}:${j.state || '?'}  ${j.commit || 'no-commit'}`);
+          } catch {
+            console.log(`batch ${b}: state.json 损坏`);
+          }
+          continue;
+        }
+      }
       const states = tasks.map((t) => {
         const p = join(dir, t, 'state.json');
         if (!existsSync(p)) return `${t}:?`;
