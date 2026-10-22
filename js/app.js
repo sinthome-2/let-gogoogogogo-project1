@@ -42,6 +42,7 @@
   const state = {
     categories: [],
     terms: [],
+    paths: [],
     index: null
   };
 
@@ -153,6 +154,16 @@
         }
       } catch (err) {
         console.warn('拼音索引加载失败，搜索将不使用拼音索引', err);
+      }
+
+      try {
+        const pathRes = await fetch('data/learning-paths.json');
+        if (pathRes.ok) {
+          const pathData = await pathRes.json();
+          state.paths = pathData.paths || [];
+        }
+      } catch (err) {
+        console.warn('学习路径加载失败，首页不显示学习路径', err);
       }
 
       renderSidebar();
@@ -308,6 +319,27 @@
     });
 
     html += '</div>';
+
+    if (state.paths.length > 0) {
+      html += '<section class="learning-paths"><h3 class="section-title">学习路径</h3>';
+      state.paths.forEach(path => {
+        html += `
+          <div class="learning-path">
+            <h4>${escapeHtml(path.name)}</h4>
+            <p>${escapeHtml(path.description)}</p>
+            <ol class="path-steps">
+              ${(path.steps || []).map(stepId => {
+                const term = getTerm(stepId);
+                const label = term ? term.name : stepId;
+                return `<li><a href="#term/${escapeHtml(stepId)}">${escapeHtml(label)}</a></li>`;
+              }).join('')}
+            </ol>
+          </div>
+        `;
+      });
+      html += '</section>';
+    }
+
     els.content.innerHTML = html;
   }
 

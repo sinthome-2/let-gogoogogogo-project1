@@ -10,6 +10,12 @@
     <loc>/let-gogoogogogo-project1/term/agi/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/ai-governance/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/algorithm/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/alignment/</loc>
   </url>
   <url>
@@ -25,13 +31,22 @@
     <loc>/let-gogoogogogo-project1/term/automation/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/autonomy/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/backpropagation/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/batch-size/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/bayesian/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/benchmark/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/bert/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/bias/</loc>
@@ -49,10 +64,22 @@
     <loc>/let-gogoogogogo-project1/term/chinese-room/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/classification/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/code-generation/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/cognition/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/consciousness/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/constitutional-ai/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/content-moderation/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/context-window/</loc>
@@ -73,7 +100,19 @@
     <loc>/let-gogoogogogo-project1/term/deepfake/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/deployment/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/diffusion-model/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/digital-divide/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/distillation/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/dropout/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/edge-deployment/</loc>
@@ -91,6 +130,24 @@
     <loc>/let-gogoogogogo-project1/term/entropy/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/epoch/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/ethics/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/evaluation/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/factuality/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/fairness/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/feedback-loop/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/few-shot/</loc>
   </url>
   <url>
@@ -98,6 +155,18 @@
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/foundation-model/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/generalization/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/generative-ai/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/gpt/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/gpu/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/gradient-descent/</loc>
@@ -133,7 +202,19 @@
     <loc>/let-gogoogogogo-project1/term/inference/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/information-extraction/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/information-theory/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/instruction-following/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/instruction-tuning/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/intelligence/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/interpretability/</loc>
@@ -143,6 +224,9 @@
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/job-displacement/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/knowledge-graph/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/latency/</loc>
@@ -163,10 +247,19 @@
     <loc>/let-gogoogogogo-project1/term/machine-translation/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/media-literacy/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/metrics/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/misinformation/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/model-zoo/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/moderation/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/moe/</loc>
@@ -181,7 +274,16 @@
     <loc>/let-gogoogogogo-project1/term/neural-network/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/neuron/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/nlp/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/one-hot-encoding/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/optimization/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/optimizer/</loc>
@@ -196,13 +298,22 @@
     <loc>/let-gogoogogogo-project1/term/perplexity/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/philosophy-of-mind/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/playground/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/pre-training/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/preference-data/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/privacy/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/probability/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/prompt/</loc>
@@ -218,6 +329,9 @@
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/rag/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/reasoning/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/red-teaming/</loc>
@@ -247,7 +361,19 @@
     <loc>/let-gogoogogogo-project1/term/safety/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/sampling/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/search/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/security/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/sentiment-analysis/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/similarity-search/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/singularity/</loc>
@@ -256,13 +382,22 @@
     <loc>/let-gogoogogogo-project1/term/skill/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/society-impact/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/speech-recognition/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/statistics/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/streaming/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/symbolic-ai/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/system/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/system-prompt/</loc>
@@ -283,7 +418,22 @@
     <loc>/let-gogoogogogo-project1/term/token/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/tokenization/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/tool-use/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/top-k/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/top-p/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/toxicity/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/training/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/training-data/</loc>
@@ -295,10 +445,22 @@
     <loc>/let-gogoogogogo-project1/term/turing-test/</loc>
   </url>
   <url>
+    <loc>/let-gogoogogogo-project1/term/uncertainty/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/understanding/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/validation/</loc>
+  </url>
+  <url>
     <loc>/let-gogoogogogo-project1/term/value-alignment/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/vector-database/</loc>
+  </url>
+  <url>
+    <loc>/let-gogoogogogo-project1/term/voice-mode/</loc>
   </url>
   <url>
     <loc>/let-gogoogogogo-project1/term/word2vec/</loc>

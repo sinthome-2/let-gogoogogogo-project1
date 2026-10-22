@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropout（随机失活）是什么？— AI 术语辞典</title>
+  <meta name="description" content="训练时随机丢弃神经元以防过拟合。">
+  <meta property="og:title" content="Dropout（随机失活）是什么？— AI 术语辞典">
+  <meta property="og:description" content="训练时随机丢弃神经元以防过拟合。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/let-gogoogogogo-project1/term/dropout/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/let-gogoogogogo-project1/assets/favicon.svg">
+  <link rel="canonical" href="/let-gogoogogogo-project1/term/dropout/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  "name": "Dropout",
+  "description": "训练时随机丢弃神经元以防过拟合。",
+  "inLanguage": "zh-CN",
+  "url": "/let-gogoogogogo-project1/term/dropout/",
+  "isPartOf": {
+    "@type": "DefinedTermSet",
+    "name": "AI 术语辞典",
+    "url": "/let-gogoogogogo-project1/"
+  }
+}
+  </script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif; line-height: 1.6; max-width: 720px; margin: 0 auto; padding: 24px; color: #1f2937; }
+    .breadcrumb { font-size: 0.9rem; color: #6b7280; margin-bottom: 16px; }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    h1 { margin: 0 0 8px; font-size: 1.8rem; }
+    .chinese-name { color: #6b7280; margin-bottom: 20px; }
+    h2 { font-size: 1.1rem; margin: 28px 0 10px; border-bottom: 1px solid #e5e7eb; padding-bottom: 6px; }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    .related-list a { color: #2563eb; text-decoration: none; }
+    .related-list a:hover { text-decoration: underline; }
+    .related-list small { color: #6b7280; margin-left: 4px; }
+    .interactive-link { display: inline-block; margin-top: 28px; padding: 8px 16px; background: #2563eb; color: #fff; border-radius: 6px; text-decoration: none; }
+    .interactive-link:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <nav class="breadcrumb">
+    <a href="/let-gogoogogogo-project1/">技术</a> › 训练与优化 › Dropout
+  </nav>
+
+  <h1>Dropout</h1>
+  <div class="chinese-name">随机失活</div>
+
+  <h2>定义</h2>
+  <p>训练神经网络时以一定概率随机丢弃部分神经元的激活，迫使网络不依赖任何单一路径，从而减轻过拟合。Dropout 只在训练时开启，推理时全部神经元参与但权重按比例缩放。</p>
+
+  <h2>示例</h2>
+<ul>
+  <li>训练时每次前向传播随机屏蔽 20% 的隐藏单元。</li>
+  <li>Dropout 可以看作对网络做指数级子网络的集成。</li>
+  <li>大模型训练中 Dropout 常被其他正则手段替代。</li>
+</ul>
+
+  <h2>相关词条</h2>
+<ul class="related-list">
+  <li><a href="/let-gogoogogogo-project1/term/regularization/">regularization</a></li>
+  <li><a href="/let-gogoogogogo-project1/term/overfitting/">overfitting</a></li>
+  <li><a href="/let-gogoogogogo-project1/term/neural-network/">neural-network</a></li>
+</ul>
+
+  <a class="interactive-link" href="/let-gogoogogogo-project1/#term/dropout">打开交互版</a>
+
+  <details id="citation">
+    <summary>引用本文</summary>
+    <pre>AI 术语辞典. Dropout[EB/OL]. [{{CITE_DATE}}]. /let-gogoogogogo-project1/term/dropout/.</pre>
+    <button type="button" data-copy>复制 GB/T 7714</button>
+    <pre>AI 术语辞典. ({{CITE_DATE}}). Dropout. AI 术语辞典. /let-gogoogogogo-project1/term/dropout/</pre>
+    <button type="button" data-copy>复制 APA</button>
+  </details>
+
+  <script>
+    document.querySelectorAll('button[data-copy]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pre = btn.previousElementSibling;
+        const text = pre.textContent.replace(/{{CITE_DATE}}/g, new Date().toLocaleDateString('sv'));
+        navigator.clipboard.writeText(text).catch(err => console.warn('复制失败', err));
+      });
+    });
+  </script>
+</body>
+</html>
