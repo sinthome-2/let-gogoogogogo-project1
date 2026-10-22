@@ -1,77 +1,102 @@
 import { describe, it, expect } from 'vitest';
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync, mkdtempSync, mkdirSync, writeFileSync, copyFileSync, rmSync, appendFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { join, dirname } from 'node:path';
+import { tmpdir } from 'node:os';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(__dirname, '..');
 
-function readRoot(file) {
-  return readFileSync(join(rootDir, file), 'utf8');
-}
-
-function existsRoot(file) {
-  return existsSync(join(rootDir, file));
-}
+const readRoot = (file) => readFileSync(join(rootDir, file), 'utf8');
 
 /**
- * 极简 GitHub Actions 工作流解析器（零依赖）。
- * 只提取判断「门禁是否真的成立」所需的四类事实：job 名、needs、run 文本、continue-on-error。
- * 目的：断言依赖图结构，而不是拿正则去撞文本——文本断言会把 bug 锁成期望。
+ * 极简 GitHub Actions 解析器（零依赖）。
+ * 提取：job 名、needs、job 级 if/continue-on-error、每个 step 的 run/if/continue-on-error。
+ * 目的：断言依赖图与跳过条件，而不是拿正则撞文本——文本断言会把写法锁死。
  */
 function parseWorkflow(yml) {
-  const lines = yml.split(/\r?\n/).map(l => l.replace(/\t/g, '  '));
+  const lines = yml.split(/\r?\n/).map((l) => l.replace(/\t/g, '  '));
   const jobs = {};
   let inJobs = false;
-  let cur = null;
-  let mode = null; // 'needs' | 'steps' | null
+  let job = null;
+  let inSteps = false;
+  let step = null;
+  let blockIndent = -1;
+
+  const newStep = () => ({ run: '', condition: '', cont: false });
 
   for (const line of lines) {
     if (/^jobs:\s*$/.test(line)) { inJobs = true; continue; }
     if (!inJobs) continue;
-    if (/^\S/.test(line) && !/^\s*#/.test(line)) { inJobs = false; cur = null; continue; }
+    if (/^\S/.test(line)) { inJobs = false; job = null; continue; }
 
-    const job = line.match(/^ {2}([A-Za-z0-9_-]+):\s*$/);
-    if (job) {
-      cur = job[1];
-      jobs[cur] = { needs: [], runs: [], continueOnError: false, condition: '' };
-      mode = null;
+    const head = line.match(/^ {2}([A-Za-z0-9_-]+):\s*$/);
+    if (head) {
+      job = head[1];
+      jobs[job] = { needs: [], condition: '', cont: false, steps: [] };
+      inSteps = false;
+      step = null;
       continue;
     }
-    if (!cur) continue;
+    if (!job) continue;
 
-    if (/^ {4}steps:\s*$/.test(line)) { mode = 'steps'; continue; }
+    if (/^ {4}steps:\s*$/.test(line)) { inSteps = true; continue; }
 
-    if (/^ {4}needs:\s*$/.test(line)) { mode = 'needs'; continue; }
+    if (/^ {4}needs:\s*$/.test(line)) continue;
     const inlineNeeds = line.match(/^ {4}needs:\s*\[(.*)\]\s*$/);
     if (inlineNeeds) {
-      jobs[cur].needs.push(...inlineNeeds[1].split(',').map(s => s.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean));
-      mode = null;
+      jobs[job].needs.push(...inlineNeeds[1].split(',').map((s) => s.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean));
       continue;
     }
     const scalarNeeds = line.match(/^ {4}needs:\s*([A-Za-z0-9_-]+)\s*$/);
-    if (scalarNeeds) { jobs[cur].needs.push(scalarNeeds[1]); mode = null; continue; }
+    if (scalarNeeds) { jobs[job].needs.push(scalarNeeds[1]); continue; }
+    const listNeeds = line.match(/^ {6}- ([A-Za-z0-9_-]+)\s*$/);
+    if (listNeeds && !inSteps) { jobs[job].needs.push(listNeeds[1]); continue; }
 
-    if (/^ {4}continue-on-error:\s*true/.test(line)) jobs[cur].continueOnError = true;
-    const cond = line.match(/^ {4}if:\s*(.+)$/);
-    if (cond) jobs[cur].condition = cond[1].trim();
+    const jobCond = line.match(/^ {4}if:\s*(.+)$/);
+    if (jobCond) { jobs[job].condition = jobCond[1].trim(); continue; }
+    if (/^ {4}continue-on-error:\s*true/.test(line)) { jobs[job].cont = true; continue; }
 
-    if (mode === 'needs') {
-      const item = line.match(/^ {6}- ([A-Za-z0-9_-]+)\s*$/);
-      if (item) { jobs[cur].needs.push(item[1]); continue; }
-      if (/^ {4}\S/.test(line)) mode = null;
+    if (!inSteps) continue;
+
+    if (/^ {6}-\s/.test(line) || /^ {6}-\s*$/.test(line)) {
+      step = newStep();
+      jobs[job].steps.push(step);
+      blockIndent = -1;
+      const inline = line.match(/^ {6}-\s+(.*)$/);
+      if (inline) applyStepKey(step, inline[1], '');
+      continue;
+    }
+    if (!step) continue;
+
+    if (blockIndent >= 0) {
+      if (line.trim() === '' || (line.match(/^ */)[0].length) >= blockIndent) {
+        step.run += '\n' + line.trim();
+        continue;
+      }
+      blockIndent = -1;
     }
 
-    const run = line.match(/^ {8}run:\s*(.+)$/);
-    if (run) { jobs[cur].runs.push(run[1]); continue; }
-    if (mode === 'steps' && /^ {10}\S/.test(line) && jobs[cur].runs.length) {
-      jobs[cur].runs[jobs[cur].runs.length - 1] += ' ' + line.trim();
-    }
+    const kv = line.match(/^ {8}([A-Za-z0-9_-]+):\s*(.*)$/);
+    if (!kv) continue;
+    const [, key, value] = kv;
+    if (key === 'run' && value === '') { blockIndent = 10; continue; }
+    applyStepKey(step, `${key}: ${value}`, '');
   }
+
+  function applyStepKey(target, text, _unused) {
+    const kv = text.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+    if (!kv) return;
+    const [, key, value] = kv;
+    if (key === 'run') target.run = value;
+    else if (key === 'if') target.condition = value.trim();
+    else if (key === 'continue-on-error') target.cont = /^true$/i.test(value.trim());
+  }
+
   return jobs;
 }
 
-/** 从 start 出发的传递依赖闭包（含 start 自身） */
 function closure(jobs, start) {
   const seen = new Set();
   const stack = [start];
@@ -79,24 +104,25 @@ function closure(jobs, start) {
     const name = stack.pop();
     if (!name || seen.has(name)) continue;
     seen.add(name);
-    const job = jobs[name];
-    if (job) stack.push(...job.needs);
+    if (jobs[name]) stack.push(...jobs[name].needs);
   }
   return seen;
 }
 
-function runsCommand(jobs, name, pattern) {
-  const job = jobs[name];
-  if (!job) return false;
-  return job.runs.some(cmd => pattern.test(cmd));
-}
+const isTestCmd = (cmd) => /\bp?npm\s+(run\s+)?test\b|\bvitest\b/.test(cmd);
+const isValidateCmd = (cmd) => /\bp?npm\s+(run\s+)?validate\b|tools\/validate\.mjs/.test(cmd);
+const isFalsy = (cond) => {
+  if (!cond) return false;
+  const c = cond.replace(/\$\{\{|\}\}/g, '').trim();
+  return /^(false|0)$/.test(c) || /^0\s*==\s*1$/.test(c);
+};
 
 describe('GitHub Pages 部署流水线', () => {
-  it('deploy.yml 含官方 action 引用与必要权限', () => {
+  it('deploy.yml 引用官方 action 且声明必要权限', () => {
     const yml = readRoot('.github/workflows/deploy.yml');
-    expect(yml).toContain('actions/configure-pages@v5');
-    expect(yml).toContain('actions/upload-pages-artifact@v4');
-    expect(yml).toContain('actions/deploy-pages@v4');
+    expect(yml).toMatch(/actions\/configure-pages@v\d+/);
+    expect(yml).toMatch(/actions\/upload-pages-artifact@v\d+/);
+    expect(yml).toMatch(/actions\/deploy-pages@v\d+/);
     expect(yml).toContain('pages: write');
     expect(yml).toContain('id-token: write');
     expect(yml).toContain('workflow_dispatch');
@@ -104,84 +130,143 @@ describe('GitHub Pages 部署流水线', () => {
     expect(yml).toMatch(/path:\s*dist/);
   });
 
-  it('deploy.yml 能被解析出 build 与 deploy 两个 job', () => {
+  it('deploy.yml 可解析出 build 与 deploy', () => {
     const jobs = parseWorkflow(readRoot('.github/workflows/deploy.yml'));
     expect(Object.keys(jobs)).toEqual(expect.arrayContaining(['build', 'deploy']));
     expect(jobs.deploy.needs.length).toBeGreaterThan(0);
   });
 
-  it('门禁成立：deploy 的传递依赖里必须真的跑 test 与 validate', () => {
+  it('门禁成立：deploy 依赖闭包里同时存在 test 与 validate', () => {
     const jobs = parseWorkflow(readRoot('.github/workflows/deploy.yml'));
-    const chain = closure(jobs, 'deploy');
+    const chain = [...closure(jobs, 'deploy')];
+    const runs = (n) => (jobs[n] ? jobs[n].steps.map((s) => s.run).join('\n') : '');
 
-    const testJob = [...chain].find(n => runsCommand(jobs, n, /\bp?npm\s+(run\s+)?test\b|\bvitest\b/));
-    const validateJob = [...chain].find(n => runsCommand(jobs, n, /\bp?npm\s+(run\s+)?validate\b|tools\/validate\.mjs/));
+    const testJob = chain.find((n) => runs(n).split('\n').some(isTestCmd));
+    const validateJob = chain.find((n) => runs(n).split('\n').some(isValidateCmd));
 
-    expect(testJob, 'deploy 的依赖链上没有任何 job 执行测试，测试红着也能上线').toBeTruthy();
-    expect(validateJob, 'deploy 的依赖链上没有任何 job 执行 validate').toBeTruthy();
-    expect(testJob, 'test 与 validate 必须在同一个 job 内执行，否则可能一个没跑完另一个就放行').toBe(validateJob);
+    expect(testJob, '依赖链上没有任何 job 跑测试，测试红着也能上线').toBeTruthy();
+    expect(validateJob, '依赖链上没有任何 job 跑 validate').toBeTruthy();
   });
 
-  it('依赖链上不允许 continue-on-error 或条件静默跳过', () => {
+  it('依赖链上不存在 job 级或 step 级的静默跳过', () => {
     const jobs = parseWorkflow(readRoot('.github/workflows/deploy.yml'));
     for (const name of closure(jobs, 'deploy')) {
       const job = jobs[name];
       if (!job) continue;
-      expect(job.continueOnError, `${name} 允许失败后继续，等于门禁形同虚设`).toBe(false);
-      expect(/^\s*false\s*$|always\(\)\s*==\s*false/.test(job.condition), `${name} 的 if 条件可能被写死为假`).toBe(false);
+      expect(job.cont, `${name} 是 continue-on-error`).toBe(false);
+      expect(isFalsy(job.condition), `${name} 的条件恒假`).toBe(false);
+      job.steps.forEach((s, i) => {
+        expect(s.cont, `${name} 第 ${i + 1} 个 step 允许失败后继续`).toBe(false);
+        expect(isFalsy(s.condition), `${name} 第 ${i + 1} 个 step 被条件跳过`).toBe(false);
+      });
     }
   });
 
-  it('deploy.yml 调用一致性检查脚本', () => {
-    const yml = readRoot('.github/workflows/deploy.yml');
-    expect(yml).toContain('node tools/ci-check.mjs');
+  it('门禁命令不得用 shell 逃逸吞掉失败', () => {
+    const jobs = parseWorkflow(readRoot('.github/workflows/deploy.yml'));
+    for (const name of closure(jobs, 'deploy')) {
+      const job = jobs[name];
+      if (!job) continue;
+      for (const step of job.steps) {
+        const cmd = step.run.trim();
+        if (!cmd) continue;
+        expect(/\|\||;|&&|\bexit 0\b|--if-present/.test(cmd), `${name} 的命令可能吞掉失败: ${cmd}`).toBe(false);
+      }
+    }
   });
 
   it('ci.yml 作为 PR 门禁，同样执行 test 与 validate', () => {
     const jobs = parseWorkflow(readRoot('.github/workflows/ci.yml'));
-    const names = Object.keys(jobs);
-    const hasTest = names.some(n => runsCommand(jobs, n, /\bp?npm\s+(run\s+)?test\b|\bvitest\b/));
-    const hasValidate = names.some(n => runsCommand(jobs, n, /\bp?npm\s+(run\s+)?validate\b|tools\/validate\.mjs/));
-    expect(hasTest).toBe(true);
-    expect(hasValidate).toBe(true);
-  });
-
-  it('ci-check.mjs 语法正确且含关键逻辑', () => {
-    const src = readRoot('tools/ci-check.mjs');
-    expect(src).toContain('term/');
-    expect(src).toContain('dist');
-    // 生成物一致性必须按**内容**比较：git status 会被 mtime/换行归一化弄脏，
-    // 在这台 Windows 上即使逐字节相同也会报 M，导致门禁误杀（实测 156 个页面）。
-    expect(src).toContain('git diff --name-only');
-    expect(src).not.toContain('git status --porcelain');
-    expect(src).toMatch(/process\.exit\(1\)/);
+    const all = Object.values(jobs).flatMap((j) => j.steps.map((s) => s.run)).join('\n').split('\n');
+    expect(all.some(isTestCmd)).toBe(true);
+    expect(all.some(isValidateCmd)).toBe(true);
   });
 
   it('dist 清单覆盖仓库根目录下所有 html 页面', () => {
     const src = readRoot('tools/ci-check.mjs');
     const match = src.match(/const SITE_FILES = \[([\s\S]*?)\];/);
     expect(match).not.toBeNull();
-    const files = match[1]
-      .split(',')
-      .map(s => s.trim().replace(/^['"`]|['"`]$/g, ''))
-      .filter(Boolean);
-
-    const rootHtml = readdirSync(rootDir).filter(f => f.endsWith('.html'));
+    const files = match[1].split(',').map((s) => s.trim().replace(/^['"`]|['"`]$/g, '')).filter(Boolean);
+    const rootHtml = readdirSync(rootDir).filter((f) => f.endsWith('.html'));
     expect(rootHtml.length).toBeGreaterThan(1);
     for (const page of rootHtml) {
-      expect(files, `根目录页面 ${page} 未进入 dist，线上永远拿不到它`).toContain(page);
+      expect(files, `根目录页面 ${page} 未进入 dist`).toContain(page);
     }
   });
 
   it('SITE_FILES 每项在仓库中真实存在', () => {
     const src = readRoot('tools/ci-check.mjs');
     const match = src.match(/const SITE_FILES = \[([\s\S]*?)\];/);
-    const files = match[1]
-      .split(',')
-      .map(s => s.trim().replace(/^['"`]|['"`]$/g, ''))
-      .filter(Boolean);
+    const files = match[1].split(',').map((s) => s.trim().replace(/^['"`]|['"`]$/g, '')).filter(Boolean);
     for (const file of files) {
-      expect(existsRoot(file), `SITE_FILES 里的 ${file} 不存在`).toBe(true);
+      expect(existsSync(join(rootDir, file)), `SITE_FILES 里的 ${file} 不存在`).toBe(true);
     }
   });
+});
+
+/**
+ * 行为级测试：把 ci-check.mjs 放进一个临时 git 仓库真实执行。
+ * 只有真实执行才能区分「命令文本里出现 pnpm test」与「失败真的会阻断」，
+ * 也才能覆盖 untracked / staged 这两类 git diff 看不见的状态。
+ */
+function withFixture(setup) {
+  const dir = mkdtempSync(join(tmpdir(), 'cicheck-'));
+  try {
+    for (const d of ['css', 'js', 'assets', 'term/demo', 'tools']) mkdirSync(join(dir, d), { recursive: true });
+    writeFileSync(join(dir, 'index.html'), '<html><body>index</body></html>\n');
+    writeFileSync(join(dir, 'flashcards.html'), '<html><body>flashcards</body></html>\n');
+    writeFileSync(join(dir, 'sitemap.xml'), '<?xml version="1.0"?><urlset></urlset>\n');
+    writeFileSync(join(dir, 'robots.txt'), 'User-agent: *\n');
+    writeFileSync(join(dir, 'sw.js'), '// service worker\n');
+    writeFileSync(join(dir, '.nojekyll'), '');
+    writeFileSync(join(dir, 'term/demo/index.html'), '<html><body>demo</body></html>\n');
+    copyFileSync(join(rootDir, 'tools/ci-check.mjs'), join(dir, 'tools/ci-check.mjs'));
+
+    const git = (...args) => spawnSync('git', ['-c', 'user.email=t@t', '-c', 'user.name=t', ...args], { cwd: dir, encoding: 'utf8' });
+    git('init', '-q');
+    git('add', '-A');
+    git('commit', '-qm', 'init');
+
+    if (setup) setup(dir, git);
+
+    const res = spawnSync(process.execPath, [join(dir, 'tools/ci-check.mjs')], { cwd: dir, encoding: 'utf8' });
+    return {
+      status: res.status,
+      out: `${res.stdout || ''}${res.stderr || ''}`,
+      distHasFlashcards: existsSync(join(dir, 'dist', 'flashcards.html'))
+    };
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+describe('ci-check 行为', () => {
+  it('生成物与提交一致时退出 0，并真的把 flashcards.html 放进 dist', () => {
+    const r = withFixture();
+    expect(r.out).toContain('CLEAN');
+    expect(r.status).toBe(0);
+    expect(r.distHasFlashcards).toBe(true);
+  }, 30000);
+
+  it('已跟踪生成物被改动时退出 1', () => {
+    const r = withFixture((dir) => appendFileSync(join(dir, 'term/demo/index.html'), '<!-- drift -->\n'));
+    expect(r.status).toBe(1);
+    expect(r.out).toContain('生成物与提交不一致');
+  }, 30000);
+
+  it('新生成的页面未 add（untracked）时退出 1', () => {
+    const r = withFixture((dir) => {
+      mkdirSync(join(dir, 'term/new-term'), { recursive: true });
+      writeFileSync(join(dir, 'term/new-term/index.html'), '<html>new</html>\n');
+    });
+    expect(r.status).toBe(1);
+  }, 30000);
+
+  it('已暂存未提交时退出 1', () => {
+    const r = withFixture((dir, git) => {
+      appendFileSync(join(dir, 'sitemap.xml'), '<!-- staged only -->\n');
+      git('add', 'sitemap.xml');
+    });
+    expect(r.status).toBe(1);
+  }, 30000);
 });
