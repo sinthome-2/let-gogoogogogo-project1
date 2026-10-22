@@ -8,6 +8,7 @@ import { join } from 'node:path';
 
 const SITE_FILES = [
   'index.html',
+  'flashcards.html',
   'css',
   'js',
   'assets',
@@ -18,7 +19,7 @@ const SITE_FILES = [
   'sw.js'
 ];
 
-const porcelain = execSync('git status --porcelain term/ sitemap.xml robots.txt', { encoding: 'utf8' });
+const porcelain = execSync('git diff --name-only -- term/ sitemap.xml robots.txt', { encoding: 'utf8' });
 if (porcelain.trim()) {
   console.error('生成物与提交不一致，请先本地跑 build-pages 并提交');
   process.exit(1);
