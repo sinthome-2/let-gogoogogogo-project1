@@ -15,10 +15,9 @@ function existsRoot(file) {
 }
 
 async function fetchSource() {
-  const url = 'https://raw.githubusercontent.com/GoogleChrome/samples/gh-pages/service-worker/basic/service-worker.js';
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to fetch source: ${res.status}`);
-  return res.text();
+  // 以仓库内 vendor 副本为准做逐行比对（Apache-2.0，tests/fixtures 内有来源声明），
+  // 避免依赖 raw.githubusercontent.com 实时可达性导致测试间歇性超时。
+  return readFileSync(join(__dirname, 'fixtures', 'service-worker.google-sample.js'), 'utf8');
 }
 
 describe('Service Worker', () => {
