@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-22",
+  "base": "main",
+  "note": "写域矩阵。禁改项优先级高于可改项；冲突时以 forbidden 为准。",
+  "owner": {
+    "orchestrator": [
+      "tests/**",
+      "tools/validate.mjs",
+      "tools/accept.mjs",
+      "tools/status.mjs",
+      "tools/check-ownership.mjs",
+      "tools/ci-check.mjs",
+      "tools/build-pages.mjs",
+      ".github/**",
+      "runs/**",
+      "docs/**",
+      "README.md",
+      "ownership.json"
+    ],
+    "executor": [
+      "js/**",
+      "css/**",
+      "index.html",
+      "flashcards.html",
+      "sw.js",
+      "data/terms.json",
+      "data/categories.json",
+      "data/learning-paths.json"
+    ],
+    "reviewer": []
+  },
+  "forbidden": {
+    "executor": [
+      "tests/**",
+      ".github/**",
+      "tools/validate.mjs",
+      "tools/ci-check.mjs",
+      "tools/build-pages.mjs",
+      "ownership.json",
+      "runs/**"
+    ]
+  }
+}
