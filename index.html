@@ -15,6 +15,7 @@
     <button type="button" id="drawerToggle" aria-label="打开分类导航" aria-expanded="false" aria-controls="sidebar">☰</button>
     <div class="search-box">
       <input type="search" id="searchInput" placeholder="搜索术语、别名、定义…" autocomplete="off">
+      <button type="button" id="randomTerm" aria-label="随机词条">🎲</button>
       <a href="./flashcards.html" class="flashcards-link" aria-label="闪卡练习">🃏</a>
       <button type="button" id="themeToggle" aria-label="切换暗色模式">🌙</button>
     </div>
@@ -29,6 +30,12 @@
       <!-- 内容区由 JavaScript 生成 -->
     </main>
   </div>
+
+  <footer class="site-footer">
+    © 2026 AI 术语辞典 · 已收录 <span id="termCount"></span> 个词条 ·
+    <a href="https://github.com/sinthome-2/let-gogoogogogo-project1" target="_blank" rel="noopener noreferrer">GitHub</a> ·
+    <a href="./flashcards.html">闪卡练习</a>
+  </footer>
 
   <script src="js/search.js"></script>
   <script src="js/utils.js"></script>

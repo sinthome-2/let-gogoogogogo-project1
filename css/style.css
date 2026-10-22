@@ -566,4 +566,7 @@ mark {
 .flashcard-result { text-align: center; margin-top: 12px; color: var(--text-muted); font-size: 0.9rem; }
 .flashcards-link { text-decoration: none; font-size: 1.2rem; padding: 4px 6px; border-radius: var(--radius); }
 .flashcards-link:hover { background: var(--primary-light); }
-
+.site-footer { text-align: center; padding: 20px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border); background: var(--surface); }
+.site-footer a { color: var(--primary); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.search-item.search-highlight { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }

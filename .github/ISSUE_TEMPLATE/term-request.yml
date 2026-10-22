@@ -1,0 +1,42 @@
+name: 词条请求
+description: 提议新增或修订一个 AI 术语词条
+title: '[词条请求] '
+labels:
+  - content
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢贡献！请注意：释义必须原创或已获授权，避免直接复制受版权保护的文本。
+  - type: input
+    id: term-name
+    attributes:
+      label: 词条名称
+      description: 请输入想要收录的术语名称
+      placeholder: 例如：Chain-of-Thought
+    validations:
+      required: true
+  - type: textarea
+    id: definition
+    attributes:
+      label: 定义 / 释义
+      description: 请用通俗易懂的语言描述该术语
+      placeholder: 请输入定义……
+    validations:
+      required: true
+  - type: input
+    id: category
+    attributes:
+      label: 分类建议
+      description: 建议归入哪个大类 / 子类（选填）
+      placeholder: 例如：技术 / 模型架构
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 自查清单
+      description: 提交前请确认以下事项
+      options:
+        - label: 我已确认释义为原创或已获授权
+          required: true
+        - label: 我已确认该词条未与现有词条重复
+          required: false
