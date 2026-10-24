@@ -1,7 +1,7 @@
 # AI 术语辞典 · 整改清单（总表 v2）
 
 > 定稿：2026-10-22 v2（合并 DeepSeek 复审意见：A1/A2 矛盾裁定、C2 兜底、历史留存声明、第 0 批卫生卡）
-> 共 **5 梯队 32 项** ｜ 来源合并：用户反馈 a–f + PM 走查 + DeepSeek 复查 R01–R22（已逐条实证）
+> 共 **5 梯队 32 项**（B3 已完成；K2 部署门禁在飞，覆盖 A4/A5 部分意图） ｜ 来源合并：用户反馈 a–f + PM 走查 + DeepSeek 复查 R01–R22（已逐条实证）
 > 规则：按梯队顺序施工；开工前先查「轮子」列（搬/借鉴/自写三方评估）；完成一项把 ⬜ 改 ✅ 并补日期。
 > 本文件同时维护于仓库 `docs/ROADMAP.md`，两边内容一致。
 
@@ -16,7 +16,7 @@
 | A | A5 | CI 告警与实话 README | **裁定：分支部署下不存在「CI 绿才发布」**（push 即发布，Actions 拦不住）。落地：CI 定位为告警门 + README 删除错误陈述、写明「push 即发布，回归靠 revert」。真门禁（Actions 部署 needs:[test] 或 branch protection+PR 流）留作升级项，触发条件：改 PR 工作流时 | DS R02=我方（重大修正） | 无轮子 | 1h | ⬜ |
 | **B 已上线 bug 与接缝** | B1 | PWA 修复 | SW 缓存版本改 terms.json 哈希注入；导航 network-first、静态资源 SWR；新增 manifest.webmanifest（192/512 icons） | DS R08=我方P8 | Workbox（MIT）vs 手写，开工评估二选一 | 4h | ⬜ |
 | B | B2 | 主题跨页+FOUC | 抽 js/theme.js 三页共用；head 内联脚本防刷新白闪 | DS R07=反馈c | pico data-theme 机制（同构自写） | 2h | ⬜ |
-| B | B3 | 焦点陷阱接线 ⭐试跑卡 | drawer 打开时激活仓库内死代码 focus-trap.js；Esc 回焦点；补 Tab 循环测试；**顺手把 drawer 的 14 处弱文本断言改强**。此卡最小、触点最清，用作「红测试→派单→机械验收→盲审→合入」全流程试跑 | DS R06=DS 顺序建议 | 自家模块 + WAI-ARIA dialog 模式 | 2h | ⬜ |
+| B | B3 | 焦点陷阱接线 ⭐试跑卡 | drawer 打开时激活仓库内死代码 focus-trap.js；Esc 回焦点；补 Tab 循环测试；**顺手把 drawer 的 14 处弱文本断言改强**。此卡最小、触点最清，用作「红测试→派单→机械验收→盲审→合入」全流程试跑 | DS R06=DS 顺序建议 | 自家模块 + WAI-ARIA dialog 模式 | 2h | ✅ 10-22（K1 批：盲审 PASS_WITH_NITS，tag k1-done，nits C1–C4 待 K1b） |
 | B | B4 | 静态页三连 | ①相关词条锚文本 id→可读名 ②{{CITE_DATE}} 改「复制引用」按钮（不用时间戳，保幂等）③「被提及」反向 related（SPA+静态双端派生，不改数据） | DS R04+R05+R11 | 无轮子；改 build-pages.mjs 一次重生成 156 页 | 4h | ⬜ |
 | **C 数据补全批** | C1 | difficulty | 156 条填 beginner/intermediate/advanced；validate 加枚举校验；详情页显示难度 | DS R09=我方P1 | 无轮子 | 1d（内容） | ⬜ |
 | C | C2 | nameZh/acronym | 脚本从 aliases 派生 nameZh（**已验证 bleu/rouge 无中文别名会漏→加 nameZh-overrides.json 兜底表，Top 30 人工过一遍**）；acronym 只填真缩写；重建拼音索引；搜索提权 | DS R10（修正） | 无轮子 | 半天 | ⬜ |
