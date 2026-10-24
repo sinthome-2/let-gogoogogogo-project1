@@ -15,7 +15,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # 门禁：测试或数据校验任何一项红，后面的 build 与 deploy 都不会启动。
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Validate data
+        run: pnpm validate
+
   build:
+    needs: verify
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
