@@ -24,3 +24,7 @@ node_modules/
 dist/
 build/
 runs/
+
+# Local project exports and machine-specific contribution data
+项目代码.docx
+terms_contribution.json.json
